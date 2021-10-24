@@ -1,4 +1,3 @@
-
 #include "ubicacion.h"
 
 const char TOPE_CADENA_FILA = ',';
@@ -49,5 +48,3 @@ int Ubicacion::limpiar_string(std::string cadena, int posicion_inicial, char str
 	    }
 	return stoi(numero);
 }
-
-

@@ -10,6 +10,7 @@
 #include "ubicacion.h"
 #include "vector.h"
 #include "edificio.h"
+#include "casillero.h"
 
 using namespace std;
 
@@ -64,8 +65,16 @@ int main(){
 
 	}
 
+	Casillero_construible c1(2, 3, false, e1);
+	Casillero_transitable t1(8, 5, false, mat_1);
+	Casillero_construible c2(2, 3, true);
+	Casillero_transitable t2(8, 5, true);
+
+	c1.mostrar();
+	t1.mostrar();
+	c2.mostrar();
+	t2.mostrar();
 
 	return 0;
 }
-
 
