@@ -1,21 +1,42 @@
 #include <iostream>
-#include "archivos.h"
 #include "menu.h"
-#include "ciudad.h"
+
+using namespace std;
 
 int main() {
-
+    
     int tipos_de_materiales = 0;
     Material* vector_materiales = nullptr;
     
-    Ciudad ciudad();
+    int cantidad_edificios = 0;
+    Edificio* vector_edificios = nullptr;
     
     int opcion_elegida;
 
     if (!cargar_materiales(vector_materiales, tipos_de_materiales)) return 0;
-    if (!cargar_edificios(ciudad)) return 0;
+    if (!cargar_edificios(vector_edificios, cantidad_edificios)) return 0;
+    
+    mostrar_bienvenida();
 
-    mostrar_materiales_disponibles(vector_materiales, tipos_de_materiales);
+    do {
+        mostrar_menu();
+        cin >> opcion_elegida;
+        cin.clear();
+        cin.ignore(100, '\n');
 
+        while (!es_opcion_valida(opcion_elegida)) {
+            system(CLR_SCREEN);
+            cout << ERROR_COLOR << "La opcion elegida es invalida. Intente de nuevo." << END_COLOR << endl;
+            cout << endl;
+            mostrar_menu();
+            cin >> opcion_elegida;
+            cin.clear();
+            cin.ignore(100, '\n');
+        }
+
+        procesar_opcion(opcion_elegida, vector_materiales, tipos_de_materiales, vector_edificios, cantidad_edificios);
+        
+    } while (opcion_elegida != 10);
+    
     return 0;
 }

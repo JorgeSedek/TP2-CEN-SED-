@@ -22,3 +22,7 @@ int Material::obtener_cantidad() {
 void Material::mostrar_material() {
     cout << '-' << obtener_cantidad() << " unidades de " << obtener_nombre() << '.' << endl;
 }
+
+void Material::restar_costo(int costo) {
+    cantidad_material -= costo;
+}

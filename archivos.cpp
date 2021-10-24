@@ -51,13 +51,12 @@ void agregar_material(Material* &vector_materiales, Material material, int &tipo
     tipos_de_materiales++;
 }
 
-bool cargar_edificios(Ciudad ciudad) {
+bool cargar_edificios(Edificio* &vector_edificios, int &cantidad_edificios) {
 
     ifstream archivo(PATH_EDIFICIOS);
     string nombre_edificio;
-    int edificios_maximos;
+    int limite_construccion;
 
-    Material vector_materiales_requeridos[MATERIALES_UTILIZADOS_EDIFICIOS];
     string nombre_material;
     int cantidad_material;
 
@@ -69,31 +68,30 @@ bool cargar_edificios(Ciudad ciudad) {
     else {
         while (archivo >> nombre_edificio) {
             
-            for (int i = 0; i < MATERIALES_UTILIZADOS_EDIFICIOS; i++) {
+            archivo >> cantidad_material;
+            nombre_material = obtener_nombre_material(PIEDRA);
+            Material piedra(nombre_material, cantidad_material);
 
-                archivo >> cantidad_material;
-                nombre_material = obtener_nombre_material(i);
+            archivo >> cantidad_material;
+            nombre_material = obtener_nombre_material(MADERA);
+            Material madera(nombre_material, cantidad_material);
 
-                Material material(nombre_material, cantidad_material);
+            archivo >> cantidad_material;
+            nombre_material = obtener_nombre_material(METAL);
+            Material metal(nombre_material, cantidad_material);
+        
+            archivo >> limite_construccion;
 
-                vector_materiales_requeridos[i] = material;
-            }
+            Edificio edificio(nombre_edificio, piedra, madera, metal, limite_construccion);
 
-            archivo >> edificios_maximos;
-
-            Edificio edificio(nombre_edificio, vector_materiales_requeridos, edificios_maximos);
-
-            agregar_edificio(ciudad, edificio);
+            agregar_edificio(vector_edificios, edificio, cantidad_edificios);
         }
     };
     archivo.close();
     return 1;
 }
 
-void agregar_edificio(Ciudad ciudad, Edificio edificio) {
-
-    int cantidad_edificios = ciudad.obtener_cantidad_edificios();
-    Edificio* vector_edificios = ciudad.obtener_vector_edificios();
+void agregar_edificio(Edificio* &vector_edificios, Edificio edificio, int &cantidad_edificios) {
 
     Edificio* nuevo_vector_edificios = new Edificio [cantidad_edificios + 1];
 
@@ -109,24 +107,4 @@ void agregar_edificio(Ciudad ciudad, Edificio edificio) {
 
     vector_edificios = nuevo_vector_edificios;
     cantidad_edificios++;
-}
-
-string obtener_nombre_material(int posicion) {
-    
-    string nombre_material;
-    
-    switch (posicion) {
-        case PIEDRA:
-        nombre_material = "piedra";
-        break;
-
-        case MADERA:
-        nombre_material = "madera";
-        break;
-
-        case METAL:
-        nombre_material = "metal";
-    }
-
-    return nombre_material;
 }
