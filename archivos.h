@@ -1,7 +1,7 @@
 #ifndef ARCHIVOS_H
 #define ARCHIVOS_H
 
-#include "ciudad.h"
+#include "utilidades.h"
 
 //pre: -
 //post: Carga el archivo de materiales al 'vector_materiales' y devuelve True.
@@ -12,8 +12,6 @@ bool cargar_materiales(Material* &vector_materiales, int &tipos_de_materiales);
 //post: Agrega el 'material' al 'vector_materiales' de forma dinámica.
 //      Actualiza el valor de 'tipos_de_materiales'.
 void agregar_material(Material* &vector_materiales, Material material, int &tipos_de_materiales);
-
-string obtener_nombre_material(int posicion);
 
 //pre: -
 //post: Carga el archivo de edificios al 'vector_edificios' y devuelve True.
