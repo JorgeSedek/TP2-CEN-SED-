@@ -75,7 +75,7 @@ int main(){
 		}
 
 	cout <<""<<endl;
-	cout << "nombre: " << u1.obtener_nombre_edificio() << endl;
+	cout << "nombre: " << u1.obtener_nombre() << endl;
 	cout << "fila: " << u1.obtener_fila() << endl;
 	cout << "columna: " << u1.obtener_columna() << endl;
 
@@ -87,7 +87,7 @@ int main(){
 
 
 	for (int i = 0; i < 3; i++){
-		cout << vc.consultar(i).obtener_nombre_edificio() << endl;
+		cout << vc.consultar(i).obtener_nombre() << endl;
 
 	}
 

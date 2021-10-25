@@ -6,7 +6,7 @@
 class Ubicacion{
 	private:
 	//atributos
-	std::string nombre_edificio;
+	std::string nombre;
 	int fila;
 	int columna;
 
@@ -21,11 +21,11 @@ class Ubicacion{
 	//constructor con parametros fila, columna y nombre
 	//pre:
 	//post: crea un objeto con parametros fila,columna y nombre
-	Ubicacion(std::string nombre_edificio, std::string fila, std::string columna);
+	Ubicacion(std::string nombre, std::string fila, std::string columna);
 
 	//pre:
 	//post: devuelve el nombre del edificio
-	std::string obtener_nombre_edificio();
+	std::string obtener_nombre();
 
 	//pre:
 	//post: devuelve la cantidad de filas

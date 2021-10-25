@@ -8,19 +8,19 @@ const int POSICION_INICIAL_FILA = 1;
 const int POSICION_INICIAL_COLUMNA = 0;
 
 Ubicacion::Ubicacion(){
-	this -> nombre_edificio = "";
+	this -> nombre = "";
 	this -> fila = 0;
 	this -> columna = 0;
 	}
 
-Ubicacion::Ubicacion(std::string nombre_edificio, std::string str_fila, std::string str_columna){
-	this -> nombre_edificio = nombre_edificio;
+Ubicacion::Ubicacion(std::string nombre, std::string str_fila, std::string str_columna){
+	this -> nombre = nombre;
 	this -> fila = limpiar_string(str_fila, POSICION_INICIAL_FILA, TOPE_CADENA_FILA);
 	this -> columna = limpiar_string(str_columna, POSICION_INICIAL_COLUMNA, TOPE_CADENA_COLUMNA);
 }
 
-std::string Ubicacion::obtener_nombre_edificio(){
-	return nombre_edificio;
+std::string Ubicacion::obtener_nombre(){
+	return nombre;
 }
 
 int Ubicacion::obtener_columna(){

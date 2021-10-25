@@ -36,6 +36,13 @@ public:
     //POS: libera la memoria utilizada
     ~Matriz();
 
+    //pre:
+    //post: devuelve la cantidad de filas
+    int obtener_filas();
+
+    //pre:
+    //post: devuelve la cantidad de columnas
+    int obtener_columnas();
 
     //consultar
     //PRE: 0 <= posicion_x < fila , 0 <= posicion_y < columna
@@ -72,6 +79,18 @@ Matriz<Dato>::Matriz(int fila, int columna) {
 		datos[i] = new Dato[fila];
 	}
 	 inicializar(0, fila, 0, columna);
+}
+
+template < typename Dato>
+
+int Matriz<Dato>::obtener_filas(){
+	return fila;
+}
+
+template < typename Dato>
+
+int Matriz<Dato>::obtener_columnas(){
+	return columna;
 }
 
 template < typename Dato>
