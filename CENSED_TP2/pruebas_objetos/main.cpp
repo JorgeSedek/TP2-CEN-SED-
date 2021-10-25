@@ -11,6 +11,7 @@
 #include "vector.h"
 #include "edificio.h"
 #include "casillero.h"
+#include "matriz.h"
 
 using namespace std;
 
@@ -22,11 +23,36 @@ int main(){
 	Material mat_1("piedra",300);
 	Material mat_2("oro", 500);
 	Material mat_3("madera",200);
+	Material mat_4("piedra",300);
+	Material mat_5("oro", 500);
+	Material mat_6("madera",200);
+	Material mat_7("piedra",300);
+	Material mat_8("oro", 500);
+	Material mat_9("madera",200);
+
+	Matriz<Material> m1(3,3);
+	m1.cambiar(0,0, mat_1);
+	m1.cambiar(1,0, mat_2);
+	m1.cambiar(2,0, mat_3);
+	m1.cambiar(0,1, mat_4);
+	m1.cambiar(1,1, mat_5);
+	m1.cambiar(2,1, mat_6);
+	m1.cambiar(0,1, mat_7);
+	m1.cambiar(1,1, mat_8);
+	m1.cambiar(2,1, mat_9);
+
+
+
+	cout << "este es el material de la fila 1 y columna 1: " << m1.consultar(1, 1).obtener_nombre() << endl;
+
+
 
 	Vector<Material> v1(3);
 	v1.cambiar(0, mat_1);
 	v1.cambiar(1, mat_2);
 	v1.cambiar(2, mat_3);
+
+
 
 	for (int j = 0; j < 3; j++){
 		cout << v1.consultar(j).obtener_nombre() << endl;

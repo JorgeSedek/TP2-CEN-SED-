@@ -27,7 +27,7 @@ public:
 
     //Constructor con un parametro (largo inicial)
     //PRE: l > 0
-    //POS: construye un Vector de largo l e inicializa en NULO
+    //POS: construye un Vector de objetos de largo l e inicializa en NULO
     Vector(int l);
 
     //Destructor
@@ -45,11 +45,6 @@ public:
     //PRE: 0 <= posicion < largo
     //POS: cambia el valor que esta en la posicion posicion por v
     void cambiar(int posicion, Dato valor);
-
-    //mostrar
-    //PRE: -
-    //POS: muestra en pantalla el vector
-    void mostrar();
 
     //PRE: cantidad > 0
     //POS: extiende el vector en cantidad de lugares
@@ -91,13 +86,6 @@ void Vector<Dato>::cambiar(int posicion, Dato valor) {
     datos[posicion] = valor;
 }
 
-template < typename Dato>
-
-void Vector<Dato>::mostrar() {
-    for (int i = 0; i < largo; i++)
-        std::cout << datos[i] << " ";
-    std::cout << std::endl;
-}
 
 template < typename Dato>
 
