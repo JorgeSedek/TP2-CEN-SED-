@@ -90,11 +90,23 @@ int main(){
 		cout << vc.consultar(i).obtener_nombre() << endl;
 
 	}
+	Vector<Casillero_construible> v4(1);
+
 
 	Casillero_construible c1(2, 3, false, e1);
 	Casillero_transitable t1(8, 5, false, mat_1);
 	Casillero_construible c2(2, 3, true);
 	Casillero_transitable t2(8, 5, true);
+
+	Matriz<Casillero> m2(2,2);
+	m2.cambiar(0, 1, valor);
+	m2.cambiar(0, 1, valor);
+
+
+	v4.cambiar(0, c1);
+	v4.cambiar(0, c2);
+	cout << "prueba casillero:";
+	v4.consultar(0).mostrar();
 
 	c1.mostrar();
 	t1.mostrar();

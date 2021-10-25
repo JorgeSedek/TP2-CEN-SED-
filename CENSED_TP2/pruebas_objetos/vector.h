@@ -50,6 +50,10 @@ public:
     //POS: extiende el vector en cantidad de lugares
     void agrandar(int cantidad);
 
+    //pre:
+	//post: devuelve el largo del vector
+    int obtener_largo();
+
 private:
 
     //PRE:
@@ -78,6 +82,13 @@ template < typename Dato>
 
 Dato Vector<Dato>::consultar(int posicion) {
     return datos[posicion];
+}
+
+template < typename Dato>
+
+int Vector<Dato>::obtener_largo(){
+	return largo;
+
 }
 
 template < typename Dato>

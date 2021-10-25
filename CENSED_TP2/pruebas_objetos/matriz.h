@@ -22,7 +22,7 @@ private:
     Dato** datos;
 
 
-    // Metodos
+
     // Metodos
 public:
 
@@ -60,7 +60,7 @@ public:
 
 private:
 
-    //PRE:
+    //PRE: Dato tiene que ser un objeto
     //POS: pone en nulos los valores desde, desde, hasta, hasta - 1
     void inicializar(int desde_x, int hasta_x, int desde_y, int hasta_y);
 

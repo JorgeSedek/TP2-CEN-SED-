@@ -1,7 +1,7 @@
 /*
  * mapa.h
  *
- *  Created on: 24 oct. 2021
+ *  Created on: 25 oct. 2021
  *      Author: jorge
  */
 
@@ -15,24 +15,17 @@
 #include "material.h"
 #include "edificio.h"
 
-//agregar a edificio.h
-const string M = "mina";
-const string A = "aserradero";
-const string F = "fabrica";
-const string E = "escuela";
-const string O = "obelisco";
-const string P = "planta electrica";
-const string M = "madera";
-const string S = "piedra";
-const string I = "metal";
+
 
 
 class Mapa{
 	private:
 	//atributos
-	Matriz<char> tipo_terrenos;
-	Vector<Ubicacion> ubicaciones;
-
+	char** tipo_terrenos;
+	//Vector<Ubicacion> ubicaciones;
+	Matriz<Casillero> casilleros;
+	int fila;
+	int columna;
 	public:
 
 	//constructor sin parametros
@@ -43,7 +36,7 @@ class Mapa{
 	//constructor con parametros tipo_terrenos y ubicaciones
 	//pre:
 	//post: construye un Mapa con las coordenadas de ubicaciones y tipo_terrenos
-	Mapa(Matriz<char> matriz_tipo_terreno, Vector<Ubicacion> ubicaciones);
+	//Mapa(char** tipo_terrenos, Vector<Ubicacion> ubicaciones, int fila, int columna);
 
 	//destructor
 	//pre:
@@ -54,14 +47,26 @@ class Mapa{
 	//post: muestra el mapa
 	void mostrar();
 
+	int obtener_fila();
+
+	int obtener_columna();
+
 	private:
 	//pre:
 	//post: inicializa los casilleros
-	void inicializar_casilleros(char tipo_terreno, int fila, int columna);
+	Casillero inicializar_casillero(char tipo_terreno, int fila, int columna);
+
+	void inicializar_casilleros(char** tipo_terrenos);
+
+	string convertir_caracter_a_palabra(string letra);
 
 	//pre:
 	//post:indica si hay un edificio en el casillero
 	bool esta_vacio(string nombre_edificio);
+
+	//pre: fila> fila > 0, columna > columna > 0, largo >posicion > 0
+	//post: indica si las coordenadas del mapa coinciden con las coordenadas de un edificio o material
+
 };
 
 
