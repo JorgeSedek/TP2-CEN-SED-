@@ -27,7 +27,7 @@ void mostrar_menu() {
     cout << END_COLOR;
 }
 
-void procesar_opcion(int opcion_elegida, Material* &vector_materiales, int &tipos_de_materiales, Edificio* &vector_edificios, int &cantidad_edificios, Ubicacion* &vector_ubicaciones, int &edificios_construidos) {
+void procesar_opcion(int opcion_elegida, Material* &vector_materiales, int &tipos_de_materiales, Edificio* &vector_edificios, int &cantidad_edificios, Ubicacion* &vector_ubicaciones, int &edificios_construidos, Mapa &mapa) {
 
     int posiciones_materiales[MATERIALES_UTILIZADOS_EDIFICIOS];
     cargar_posicion_material_edificios(vector_materiales, tipos_de_materiales, posiciones_materiales);
@@ -53,6 +53,7 @@ void procesar_opcion(int opcion_elegida, Material* &vector_materiales, int &tipo
             break;
         case 5:
             system(CLR_SCREEN);
+            mapa.imprimir_mapa();
             break;
         case 6:
             system(CLR_SCREEN);

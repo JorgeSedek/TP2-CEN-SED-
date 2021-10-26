@@ -1,8 +1,9 @@
 #ifndef UTILIDADES_H
 #define UTILIDADES_H
 
-#include "edificio.h"
+#include "casillero.h"
 #include "ubicacion.h"
+#include "mapa.h"
 
 const int ERROR_EXCEDENTE = -1;
 const int ERROR_NOMBRE_INCORRECTO = -2;
@@ -20,5 +21,6 @@ void construir_edificio(Material* &vector_materiales, Edificio* &vector_edificio
 void confirmar_construccion(Material* vector_materiales, Edificio* vector_edificios, int posicion_edificio, int posiciones_materiales[]);
 int obtener_cantidad_edificio(Ubicacion* vector_ubicaciones, int edificios_construidos, string nombre_edificio);
 void mostrar_edificios_construidos(Edificio* vector_edificios, int cantidad_edificios, Ubicacion* vector_ubicaciones, int edificios_construidos);
+Casillero* crear_casillero(int fila, int columna, string tipo_casillero);
 
 #endif // UTILIDADES_H

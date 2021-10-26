@@ -13,12 +13,15 @@ int main() {
 
     int edificios_construidos = 0;
     Ubicacion* vector_ubicaciones = nullptr;
+
+    Mapa mapa = Mapa();
     
     int opcion_elegida;
 
     if (!cargar_materiales(vector_materiales, tipos_de_materiales)) return 0;
     if (!cargar_edificios(vector_edificios, cantidad_edificios)) return 0;
     if (!cargar_ubicaciones(vector_ubicaciones, edificios_construidos)) return 0;
+    if (!cargar_mapa(mapa)) return 0;
     
     mostrar_bienvenida();
 
@@ -38,7 +41,7 @@ int main() {
             cin.ignore(100, '\n');
         }
 
-        procesar_opcion(opcion_elegida, vector_materiales, tipos_de_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos);
+        procesar_opcion(opcion_elegida, vector_materiales, tipos_de_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, mapa);
         
     } while (opcion_elegida != 10);
     

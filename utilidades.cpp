@@ -189,3 +189,22 @@ void mostrar_edificios_construidos(Edificio* vector_edificios, int cantidad_edif
     }
     cout << END_COLOR << endl;
 }
+
+Casillero* crear_casillero(int fila, int columna, string tipo_casillero) {
+
+    Casillero* casillero_devuelto;
+
+    if (tipo_casillero == "T") {
+		casillero_devuelto = new Casillero_construible(fila, columna, tipo_casillero);
+	}
+
+	if (tipo_casillero == "C") {
+		casillero_devuelto = new Casillero_transitable(fila, columna, tipo_casillero);
+	}
+
+    if (tipo_casillero == "L") {
+        casillero_devuelto = new Casillero_inaccesible(fila, columna, tipo_casillero);
+    }
+
+    return casillero_devuelto;
+}

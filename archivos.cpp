@@ -4,10 +4,6 @@
 
 using namespace std;
 
-const string PATH_EDIFICIOS = "edificios.txt";
-const string PATH_MATERIALES = "materiales.txt";
-const string PATH_UBICACIONES = "ubicaciones.txt";
-
 bool cargar_materiales(Material* &vector_materiales, int &tipos_de_materiales) {
 
     ifstream archivo(PATH_MATERIALES);
@@ -154,4 +150,38 @@ void agregar_ubicacion(Ubicacion* &vector_ubicaciones, Ubicacion ubicacion, int 
 
     vector_ubicaciones = nuevo_vector_ubicaciones;
     edificios_construidos++;
+}
+
+bool cargar_mapa(Mapa &mapa) {
+
+    ifstream archivo(PATH_MAPA);
+    int filas;
+    int columnas;
+    string tipo_casillero;
+
+    if (!archivo.is_open()) {
+        cout << endl;
+        cout << "ERROR: No se encuentra el archivo de mapa." << endl;
+        return 0;
+    }
+    else {
+
+        archivo >> filas;
+        archivo >> columnas;
+
+        Mapa nuevo_mapa(filas, columnas);
+        
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                
+                archivo >> tipo_casillero;
+                Casillero* casillero = crear_casillero(i, j, tipo_casillero);
+                nuevo_mapa.cargar_casillero(i, j, casillero);
+            }
+        }
+
+        mapa = nuevo_mapa;
+    };
+    archivo.close();
+    return 1;
 }

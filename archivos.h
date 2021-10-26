@@ -3,6 +3,11 @@
 
 #include "utilidades.h"
 
+const string PATH_EDIFICIOS = "edificios.txt";
+const string PATH_MATERIALES = "materiales.txt";
+const string PATH_UBICACIONES = "ubicaciones.txt";
+const string PATH_MAPA = "mapa.txt";
+
 //pre: -
 //post: Carga el archivo de materiales al 'vector_materiales' y devuelve True.
 //      Imprime un error y devuelve False si el archivo no existe.
@@ -25,6 +30,6 @@ void agregar_edificio(Edificio* &vector_edificios, Edificio edificio, int &canti
 
 bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construidos);
 void agregar_ubicacion(Ubicacion* &vector_ubicaciones, Ubicacion ubicacion, int &edificios_construidos);
-bool cargar_mapa(Casillero** &mapa);
+bool cargar_mapa(Mapa &mapa);
 
 #endif // ARCHIVOS_H
