@@ -6,6 +6,7 @@ using namespace std;
 
 const string PATH_EDIFICIOS = "edificios.txt";
 const string PATH_MATERIALES = "materiales.txt";
+const string PATH_UBICACIONES = "ubicaciones.txt";
 
 bool cargar_materiales(Material* &vector_materiales, int &tipos_de_materiales) {
 
@@ -107,4 +108,50 @@ void agregar_edificio(Edificio* &vector_edificios, Edificio edificio, int &canti
 
     vector_edificios = nuevo_vector_edificios;
     cantidad_edificios++;
+}
+
+bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construidos) {
+    
+    ifstream archivo(PATH_UBICACIONES);
+    string nombre_edificio;
+    string fila;
+    string columna;
+
+    if (!archivo.is_open()) {
+        cout << endl;
+        cout << "ERROR: No se encuentra el archivo de ubicaciones." << endl;
+        return 0;
+    }
+    else {
+
+        while (archivo >> nombre_edificio) {
+            archivo >> fila;
+            archivo >> columna;
+
+            Ubicacion ubicacion(nombre_edificio, fila, columna);
+
+            agregar_ubicacion(vector_ubicaciones, ubicacion, edificios_construidos);
+        }
+    };
+    archivo.close();
+    return 1;
+
+}
+
+void agregar_ubicacion(Ubicacion* &vector_ubicaciones, Ubicacion ubicacion, int &edificios_construidos) {
+
+    Ubicacion* nuevo_vector_ubicaciones = new Ubicacion [edificios_construidos + 1];
+
+    for (int i = 0; i < edificios_construidos; i++) {
+        nuevo_vector_ubicaciones[i] = vector_ubicaciones[i];
+    }
+
+    nuevo_vector_ubicaciones[edificios_construidos] = ubicacion;
+
+    if (edificios_construidos != 0) {
+        delete[] vector_ubicaciones;
+    }
+
+    vector_ubicaciones = nuevo_vector_ubicaciones;
+    edificios_construidos++;
 }

@@ -7,6 +7,14 @@
 
 using namespace std;
 
+const string S = "piedra";
+const string W = "madera";
+const string I = "metal";
+const int PRODUCCION_MINA = 15;
+const int PRODUCCION_ASERRADERO = 25;
+const int PRODUCCION_FABRICA = 40;
+const int SIN_MATERIAL = 0;
+
 class Material {
 
     private:

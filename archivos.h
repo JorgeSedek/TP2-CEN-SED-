@@ -23,4 +23,8 @@ bool cargar_edificios(Edificio* &vector_edificios, int &cantidad_edificios);
 //      Actualiza el valor de 'cantidad_edificios'.
 void agregar_edificio(Edificio* &vector_edificios, Edificio edificio, int &cantidad_edificios);
 
+bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construidos);
+void agregar_ubicacion(Ubicacion* &vector_ubicaciones, Ubicacion ubicacion, int &edificios_construidos);
+bool cargar_mapa(Casillero** &mapa);
+
 #endif // ARCHIVOS_H

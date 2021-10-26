@@ -125,7 +125,7 @@ void cargar_posicion_material_edificios(Material* vector_materiales, int tipos_d
     }
 }
 
-void mostrar_todos_edificios(Edificio* vector_edificios, int cantidad_edificios) {
+void mostrar_todos_edificios(Edificio* vector_edificios, int cantidad_edificios, Ubicacion* vector_ubicaciones, int edificios_construidos) {
 
     cout << ENTER_COLOR << "Esta es la informacion de todos los edificios: " << END_COLOR << endl;
     cout << endl;
@@ -141,9 +141,51 @@ void mostrar_todos_edificios(Edificio* vector_edificios, int cantidad_edificios)
             cout << vector_edificios[i].obtener_nombre_material(j) << "." << END_COLOR << endl;
         }
 
+        Material materiales_producidos = vector_edificios[i].obtener_materiales_producidos();
+        string nombre_material = materiales_producidos.obtener_nombre();
+        int cantidad_material = materiales_producidos.obtener_cantidad();
+
         cout << endl;
-        cout << SUCESS_COLOR << "-Construidos: " << "'Sin definir'" << "/";
+        if (materiales_producidos.obtener_cantidad() != SIN_MATERIAL) {
+            cout << SUCESS_COLOR << "-Produce " << cantidad_material << " de " << nombre_material << " cuando se recolecta." << endl;
+        }
+
+        string nombre_edificio = vector_edificios[i].obtener_nombre();
+        int cantidad_construidos = obtener_cantidad_edificio(vector_ubicaciones, edificios_construidos, nombre_edificio);
+
+        cout << SUCESS_COLOR << "-Construidos: " << cantidad_construidos << "/";
         cout << vector_edificios[i].obtener_limite_construccion() << "." << endl;
         cout << END_COLOR << endl;
     }
+}
+
+int obtener_cantidad_edificio(Ubicacion* vector_ubicaciones, int edificios_construidos, string nombre_edificio) {
+
+    int cantidad = 0;
+
+    for (int i = 0; i < edificios_construidos; i++) {
+
+        if (vector_ubicaciones[i].obtener_nombre() == nombre_edificio) {
+            cantidad++;
+        }
+    }
+    return cantidad;
+}
+
+void mostrar_edificios_construidos(Edificio* vector_edificios, int cantidad_edificios, Ubicacion* vector_ubicaciones, int edificios_construidos) {
+
+    cout << ENTER_COLOR << "Estos son todos los edificios construidos: " << END_COLOR << endl;
+    cout << endl;
+
+    for (int i = 0; i < cantidad_edificios; i++) {
+        
+        string nombre_edificio = vector_edificios[i].obtener_nombre();
+        int cantidad_construidos = obtener_cantidad_edificio(vector_ubicaciones, edificios_construidos, nombre_edificio); 
+        
+        if (cantidad_construidos != NO_HAY_CONSTRUIDO) {
+            cout << SUCESS_COLOR;
+            cout << "-Hay " << cantidad_construidos << " '"<< nombre_edificio << "' construidos/as." << endl;
+        }
+    }
+    cout << END_COLOR << endl;
 }
