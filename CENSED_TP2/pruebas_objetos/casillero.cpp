@@ -47,7 +47,6 @@ Casillero_construible::Casillero_construible(int fila, int columna, bool esta_va
 
 }
 
-
 Casillero_construible::Casillero_construible(int fila, int columna, bool esta_vacio, Edificio edificio) : Casillero(fila, columna, esta_vacio) {
 
 	this -> edificio = edificio;

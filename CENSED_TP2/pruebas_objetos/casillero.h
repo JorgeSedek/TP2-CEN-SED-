@@ -99,6 +99,11 @@ class Casillero_construible: public Casillero{
 	//pre:
 	//post: construye un objeto casillero con parametros
 	Casillero_construible(int fila, int columna, bool esta_vacio, Edificio edificio);
+	
+	Edificio obtener_edificio(){
+		
+		return edificio;
+	}
 
 
 	void mostrar(){

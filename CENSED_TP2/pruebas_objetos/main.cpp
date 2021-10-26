@@ -4,7 +4,8 @@
  *  Created on: 22 oct. 2021
  *      Author: jorge
  */
-
+// planta electrica (1, 2)
+//planta electrica
 #include <string>
 #include <iostream>
 #include "ubicacion.h"
@@ -95,13 +96,22 @@ int main(){
 
 	Casillero_construible c1(2, 3, false, e1);
 	Casillero_transitable t1(8, 5, false, mat_1);
-	Casillero_construible c2(2, 3, true);
+	
+	Casillero_construible c2(2, 3, false, e1);
+	
 	Casillero_transitable t2(8, 5, true);
-
+	
+	cout << "prueba3:" ;
+	cout << c2.obtener_edificio().obtener_nombre() << endl;
+	
+	
+	
+	
+/*
 	Matriz<Casillero> m2(2,2);
 	m2.cambiar(0, 1, valor);
 	m2.cambiar(0, 1, valor);
-
+*/
 
 	v4.cambiar(0, c1);
 	v4.cambiar(0, c2);
