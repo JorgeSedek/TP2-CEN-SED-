@@ -1,0 +1,5 @@
+aserradero (2, 3)
+aserradero (9, 3)
+fabrica (4, 2)
+fabrica (7, 9)
+yacimiento (4, 8)
