@@ -18,6 +18,7 @@ class Casillero {
 	int obtener_fila();
 	int obtener_columna();
 	string obtener_tipo_casillero();
+	Casillero* crear_subcasillero(int fila, int columna, string tipo_casillero);
 	virtual void mostrar() = 0;
 	virtual void imprimir_casillero() = 0;
 };
@@ -33,7 +34,7 @@ class Casillero_transitable: public Casillero {
 	}
 
 	void imprimir_casillero() {
-		cout << CAMINO << "C";
+		cout << CAMINO << NEGRO << "   " << END_COLOR;
 	}
 };
 
@@ -48,7 +49,8 @@ class Casillero_construible: public Casillero {
 	}
 
 	void imprimir_casillero() {
-		cout << TERRENO << "T";
+		cout << TERRENO << NEGRO << "   " << END_COLOR;
+		
 	}
 };
 
@@ -60,7 +62,7 @@ class Casillero_inaccesible: public Casillero {
 	}
 
 	void imprimir_casillero() {
-		cout << LAGO << "L";
+		cout << LAGO << NEGRO << "   " << END_COLOR;
 	}
 };
 

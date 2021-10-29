@@ -27,17 +27,15 @@ void mostrar_menu() {
     cout << END_COLOR;
 }
 
-void procesar_opcion(int opcion_elegida, Material* &vector_materiales, int &tipos_de_materiales, Edificio* &vector_edificios, int &cantidad_edificios, Ubicacion* &vector_ubicaciones, int &edificios_construidos, Mapa &mapa) {
+void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_materiales, int &tipos_de_materiales, Edificio* &vector_edificios, int &cantidad_edificios, Ubicacion* &vector_ubicaciones, int &edificios_construidos) {
 
     int posiciones_materiales[MATERIALES_UTILIZADOS_EDIFICIOS];
     cargar_posicion_material_edificios(vector_materiales, tipos_de_materiales, posiciones_materiales);
 
-    int posicion_edificio;
-
     switch (opcion_elegida) {
         case 1:
             system(CLR_SCREEN);
-            verificar_edificio(vector_materiales, vector_edificios, cantidad_edificios, posiciones_materiales);
+            verificar_edificio(mapa, vector_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, posiciones_materiales);
             cout << endl;
             break;
         case 2:
@@ -53,7 +51,7 @@ void procesar_opcion(int opcion_elegida, Material* &vector_materiales, int &tipo
             break;
         case 5:
             system(CLR_SCREEN);
-            mapa.imprimir_mapa();
+            mapa -> imprimir_mapa();
             break;
         case 6:
             system(CLR_SCREEN);
@@ -70,6 +68,7 @@ void procesar_opcion(int opcion_elegida, Material* &vector_materiales, int &tipo
             break;
         case 10:
             system(CLR_SCREEN);
+            mapa -> borrar();
     }
 }
 

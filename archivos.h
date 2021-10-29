@@ -30,6 +30,6 @@ void agregar_edificio(Edificio* &vector_edificios, Edificio edificio, int &canti
 
 bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construidos);
 void agregar_ubicacion(Ubicacion* &vector_ubicaciones, Ubicacion ubicacion, int &edificios_construidos);
-bool cargar_mapa(Mapa &mapa);
+bool cargar_mapa(Mapa* &mapa);
 
 #endif // ARCHIVOS_H

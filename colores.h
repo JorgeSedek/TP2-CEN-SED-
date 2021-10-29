@@ -9,5 +9,7 @@
 #define LAGO "\033[48;5;23m"
 #define TERRENO "\033[48;5;22m"
 #define CAMINO "\033[48;5;59m"
+#define NEGRO "\033[38;5;233m"
+
 
 #endif // COLORES_H

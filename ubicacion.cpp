@@ -21,15 +21,15 @@ Ubicacion::Ubicacion(string nombre, string str_fila, string str_columna){
 	this -> columna = limpiar_string(str_columna, POSICION_INICIAL_COLUMNA, TOPE_CADENA_COLUMNA);
 }
 
-std::string Ubicacion::obtener_nombre(){
+string Ubicacion::obtener_nombre() {
 	return nombre;
 }
 
-int Ubicacion::obtener_columna(){
+int Ubicacion::obtener_columna() {
 	return columna;
 }
 
-int Ubicacion::obtener_fila(){
+int Ubicacion::obtener_fila() {
 	return fila;
 }
 
@@ -42,7 +42,7 @@ int Ubicacion::limpiar_string(string cadena, int posicion_inicial, char str_tope
 
 	while (cadena[posicion_inicial + 1] != str_tope) {
 	    posicion_inicial++;
-	    if (ASCII_NUM_ZERO <= cadena[posicion_inicial] <= ASCII_NUM_NUEVE) {
+	    if (ASCII_NUM_ZERO <= cadena[posicion_inicial] && cadena[posicion_inicial] <= ASCII_NUM_NUEVE) {
 	    		cifra = cadena[posicion_inicial];
 	    		numero = numero + cifra;
 	    }

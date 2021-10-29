@@ -23,7 +23,7 @@ int encontrar_edificio(Edificio* vector_edificios, int cantidad_edificios) {
     return posicion_edificio;
 }
 
-void verificar_edificio(Material* &vector_materiales, Edificio* &vector_edificios, int cantidad_edificios, int posiciones_materiales[]) {
+void verificar_edificio(Mapa* &mapa, Material* &vector_materiales, Edificio* &vector_edificios, int cantidad_edificios, Ubicacion* vector_ubicaciones, int edificios_construidos, int posiciones_materiales[]) {
 
     int verificacion = 0;
     int posicion_edificio = encontrar_edificio(vector_edificios, cantidad_edificios);
@@ -37,11 +37,78 @@ void verificar_edificio(Material* &vector_materiales, Edificio* &vector_edificio
             }
         }
 
+        int coordenadas[CANTIDAD_COORDENADAS];
+
         if (verificacion != ERROR_EXCEDENTE) {
+            verificacion = verificar_coordenada_valida(mapa, vector_ubicaciones, edificios_construidos, coordenadas);
+        }
+
+        if (verificacion) {
         confirmar_construccion(vector_materiales, vector_edificios, posicion_edificio, posiciones_materiales);
         }
     }
+}
 
+bool verificar_coordenada_valida(Mapa* mapa, Ubicacion* vector_ubicaciones, int edificios_construidos, int* coordenadas) {
+
+    pedir_coordenadas(coordenadas);
+    int filas = mapa -> obtener_filas();
+    int columnas = mapa -> obtener_columnas();
+    bool verificacion = true;
+
+    if (coordenadas[FILA] > filas || coordenadas[COLUMNA] > columnas) {
+        cout << ERROR_COLOR << "Las coordenadas ingresadas estan fuera del mapa." << END_COLOR << endl;
+        verificacion = false;
+    }
+    else if (coordenada_ocupada(vector_ubicaciones, edificios_construidos, coordenadas)) {
+        cout << ERROR_COLOR << "Las coordenadas ingresadas se encuentran ocupadas." << END_COLOR << endl;
+        verificacion = false;
+    }
+    return verificacion;
+}
+
+void pedir_coordenadas(int* coordenadas) {
+    
+    int fila;
+    int columna;
+
+    cout << SUCESS_COLOR << "Ingrese la fila donde desea construir el edificio: " << END_COLOR << endl;
+    cin >> fila;
+    cin.clear();
+    cin.ignore(100, '\n');
+
+    while (fila <= 0) {
+        cout << SUCESS_COLOR << "Ingrese la fila donde desea construir el edificio: " << END_COLOR << endl;
+        cin >> fila;
+        cin.clear();
+        cin.ignore(100, '\n');
+    }
+
+    cout << SUCESS_COLOR << "Ingrese la columna donde desea construir el edificio: " << END_COLOR<< endl;
+    cin >> columna;
+    cin.clear();
+    cin.ignore(100, '\n');
+
+    while (columna <= 0) {
+        cout << SUCESS_COLOR << "Ingrese la columna donde desea construir el edificio: " << END_COLOR << endl;
+        cin >> columna;
+        cin.clear();
+        cin.ignore(100, '\n');
+    }
+    cout << endl;
+    
+    coordenadas[FILA] = fila;
+    coordenadas[COLUMNA] = columna;
+}
+
+bool coordenada_ocupada(Ubicacion* vector_ubicaciones, int edificios_construidos, int* coordenadas) {
+
+    for (int i = 0; i < edificios_construidos; i++) {
+        if (vector_ubicaciones[i].obtener_fila() == coordenadas[FILA] && vector_ubicaciones[i].obtener_columna() == coordenadas[COLUMNA]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void construir_edificio(Material* &vector_materiales, Edificio* &vector_edificios, int posicion_edificio, int posiciones_materiales[]) {
@@ -188,23 +255,4 @@ void mostrar_edificios_construidos(Edificio* vector_edificios, int cantidad_edif
         }
     }
     cout << END_COLOR << endl;
-}
-
-Casillero* crear_casillero(int fila, int columna, string tipo_casillero) {
-
-    Casillero* casillero_devuelto;
-
-    if (tipo_casillero == "T") {
-		casillero_devuelto = new Casillero_construible(fila, columna, tipo_casillero);
-	}
-
-	if (tipo_casillero == "C") {
-		casillero_devuelto = new Casillero_transitable(fila, columna, tipo_casillero);
-	}
-
-    if (tipo_casillero == "L") {
-        casillero_devuelto = new Casillero_inaccesible(fila, columna, tipo_casillero);
-    }
-
-    return casillero_devuelto;
 }

@@ -14,7 +14,7 @@ int main() {
     int edificios_construidos = 0;
     Ubicacion* vector_ubicaciones = nullptr;
 
-    Mapa mapa = Mapa();
+    Mapa* mapa;
     
     int opcion_elegida;
 
@@ -41,7 +41,7 @@ int main() {
             cin.ignore(100, '\n');
         }
 
-        procesar_opcion(opcion_elegida, vector_materiales, tipos_de_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, mapa);
+        procesar_opcion(opcion_elegida, mapa, vector_materiales, tipos_de_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos);
         
     } while (opcion_elegida != 10);
     
