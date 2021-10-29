@@ -65,6 +65,7 @@ void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_material
             break;
         case 9:
             system(CLR_SCREEN);
+            mapa -> generar_lluvia_materiales();
             break;
         case 10:
             system(CLR_SCREEN);

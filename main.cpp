@@ -1,9 +1,12 @@
 #include <iostream>
 #include "menu.h"
+#include "ctime"
 
 using namespace std;
 
 int main() {
+
+    srand(time(NULL));
     
     int tipos_de_materiales = 0;
     Material* vector_materiales = nullptr;

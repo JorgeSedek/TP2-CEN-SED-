@@ -7,9 +7,6 @@ using namespace std;
 
 const int MATERIALES_UTILIZADOS_EDIFICIOS = 3;
 const int NO_HAY_CONSTRUIDO = 0;
-const int PIEDRA = 0;
-const int MADERA = 1;
-const int METAL = 2;
 const string MINA = "mina";
 const string ASERRADERO = "aserradero";
 const string FABRICA = "fabrica";

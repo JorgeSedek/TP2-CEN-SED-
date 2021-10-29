@@ -17,6 +17,8 @@ class Mapa {
 	int obtener_columnas();
 	void cargar_casillero(int posicion_fila, int posicion_columna, Casillero* casillero);
 	void imprimir_mapa();
+	void generar_lluvia_materiales();
+	void borrar_casillero(Casillero* casillero);
 };
 
 #endif // MAPA_H_INCLUDED

@@ -44,7 +44,7 @@ void verificar_edificio(Mapa* &mapa, Material* &vector_materiales, Edificio* &ve
         }
 
         if (verificacion) {
-        confirmar_construccion(vector_materiales, vector_edificios, posicion_edificio, posiciones_materiales);
+            confirmar_construccion(vector_materiales, vector_edificios, posicion_edificio, posiciones_materiales);
         }
     }
 }
@@ -72,33 +72,41 @@ void pedir_coordenadas(int* coordenadas) {
     int fila;
     int columna;
 
-    cout << SUCESS_COLOR << "Ingrese la fila donde desea construir el edificio: " << END_COLOR << endl;
-    cin >> fila;
-    cin.clear();
-    cin.ignore(100, '\n');
+    pedir_fila(fila);
 
     while (fila <= 0) {
-        cout << SUCESS_COLOR << "Ingrese la fila donde desea construir el edificio: " << END_COLOR << endl;
-        cin >> fila;
-        cin.clear();
-        cin.ignore(100, '\n');
+        system(CLR_SCREEN);
+        cout << ERROR_COLOR << "Debe ingresar un numero positivo." << END_COLOR << endl;
+        cout << endl;
+        pedir_fila(fila);
     }
 
-    cout << SUCESS_COLOR << "Ingrese la columna donde desea construir el edificio: " << END_COLOR<< endl;
-    cin >> columna;
-    cin.clear();
-    cin.ignore(100, '\n');
+    pedir_columna(columna);
 
     while (columna <= 0) {
-        cout << SUCESS_COLOR << "Ingrese la columna donde desea construir el edificio: " << END_COLOR << endl;
-        cin >> columna;
-        cin.clear();
-        cin.ignore(100, '\n');
+        system(CLR_SCREEN);
+        cout << ERROR_COLOR << "Debe ingresar un numero positivo." << END_COLOR << endl;
+        cout << endl;
+        pedir_columna(columna);
     }
     cout << endl;
     
     coordenadas[FILA] = fila;
     coordenadas[COLUMNA] = columna;
+}
+
+void pedir_fila(int &fila) {
+    cout << ENTER_COLOR << "Ingrese la fila donde desea construir el edificio: " << END_COLOR << endl;
+    cin >> fila;
+    cin.clear();
+    cin.ignore(100, '\n');
+}
+
+void pedir_columna(int &columna) {
+    cout << ENTER_COLOR << "Ingrese la columna donde desea construir el edificio: " << END_COLOR << endl;
+    cin >> columna;
+    cin.clear();
+    cin.ignore(100, '\n');
 }
 
 bool coordenada_ocupada(Ubicacion* vector_ubicaciones, int edificios_construidos, int* coordenadas) {
@@ -133,6 +141,7 @@ void confirmar_construccion(Material* vector_materiales, Edificio* vector_edific
 
     string respuesta;
 
+    system(CLR_SCREEN);
     cout << ENTER_COLOR << "Esta seguro que desea construir un/a '" << vector_edificios[posicion_edificio].obtener_nombre() << "'?" << END_COLOR;
     cout <<  SUCESS_COLOR <<" Ingrese 'si' para confirmar." << END_COLOR << endl;
     mostrar_costo_edificio(vector_edificios, posicion_edificio);

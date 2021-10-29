@@ -26,3 +26,32 @@ void Material::mostrar_material() {
 void Material::restar_costo(int costo) {
     cantidad_material -= costo;
 }
+
+void Material::llover_material_aleatorio() {
+
+	int tipo_material = rand() % CANT_MATERIALES;
+	string nombre_material_aleatorio = obtener_tipo_material(tipo_material);
+		
+	if (nombre_material == VACIO || cantidad_material) {
+		this -> nombre_material = nombre_material_aleatorio;
+		this -> cantidad_material = MATERIAL_CONTENIDO_POR_CASILLERO;
+	}
+}
+
+string Material::obtener_tipo_material(int tipo_material){
+	string nombre_material;
+
+	switch(tipo_material){
+		case PIEDRA:
+			nombre_material = "piedra";
+			break;
+		case MADERA:
+			nombre_material = "madera";
+			break;
+		case METAL:
+			nombre_material = "metal";
+			break;
+
+	}
+	return nombre_material;
+}

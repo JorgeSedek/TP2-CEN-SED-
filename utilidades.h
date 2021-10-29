@@ -23,6 +23,8 @@ int obtener_cantidad_edificio(Ubicacion* vector_ubicaciones, int edificios_const
 void mostrar_edificios_construidos(Edificio* vector_edificios, int cantidad_edificios, Ubicacion* vector_ubicaciones, int edificios_construidos);
 bool verificar_coordenada_valida(Mapa* mapa, Ubicacion* vector_ubicaciones, int edificios_construidos, int* coordenadas);
 void pedir_coordenadas(int* coordenadas);
+void pedir_fila(int &fila);
+void pedir_columna(int &columna);
 bool coordenada_ocupada(Ubicacion* vector_ubicaciones, int edificios_construidos, int* coordenadas);
 
 #endif // UTILIDADES_H

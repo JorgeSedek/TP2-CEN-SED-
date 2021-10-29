@@ -33,6 +33,10 @@ Casillero_transitable::Casillero_transitable(int fila, int columna, string tipo_
 	this -> material = Material();
 }
 
+void Casillero_transitable::asignar_material(Material material) {
+	this -> material = material;
+}
+
 Casillero_construible::Casillero_construible(int fila, int columna, string tipo_casillero) : Casillero() {
 	this -> fila = fila;
 	this -> columna = columna;

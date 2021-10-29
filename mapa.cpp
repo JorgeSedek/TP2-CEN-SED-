@@ -16,6 +16,11 @@ Mapa::Mapa(int filas, int columnas) {
 void Mapa::borrar() {
 
 	for (int i = 0; i < filas; i++) {
+
+		for (int j = 0; j < columnas; j++) {
+			delete matriz[i][j];
+		}
+
 		delete[] matriz[i];
 	}
 
@@ -61,4 +66,32 @@ void Mapa::imprimir_mapa() {
 		cout << ENTER_COLOR << lineas_columnas << endl;
 	}
 	cout << END_COLOR << endl;
+}
+
+void Mapa::generar_lluvia_materiales() {
+
+	cout << SUCESS_COLOR << "Se ha generado una lluvia de materiales." << END_COLOR << endl;
+	cout << endl;
+		
+	for (int i = 0; i < filas; i++) {
+		for (int j = 0; j < columnas; j++) {
+			
+			if (matriz[i][j] -> obtener_tipo_casillero() == TRANSITABLE && !matriz[i][j] -> obtener_cantidad_contenida()) {
+
+				borrar_casillero(matriz[i][j]);
+				
+				Material nuevo_material = Material();
+				nuevo_material.llover_material_aleatorio();
+
+				Casillero_transitable* transitable = new Casillero_transitable(i, j, TRANSITABLE);
+				transitable -> asignar_material(nuevo_material);
+
+				matriz[i][j] = transitable;
+			}	
+		}
+	}
+}
+
+void Mapa::borrar_casillero(Casillero* casillero) {
+	delete casillero;
 }
