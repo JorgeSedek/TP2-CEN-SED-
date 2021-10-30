@@ -27,7 +27,11 @@ void Material::restar_costo(int costo) {
     cantidad_material -= costo;
 }
 
-void Material::llover_material_aleatorio() {
+void Material::mostrar_informacion() {
+	cout << ENTER_COLOR << "-Soy un/una " << obtener_nombre() << " y me encuentro en el casillero consultado." << END_COLOR << endl;
+}
+
+int Material::llover_material_aleatorio() {
 
 	int tipo_material = rand() % CANT_MATERIALES;
 	string nombre_material_aleatorio = obtener_tipo_material(tipo_material);
@@ -36,6 +40,7 @@ void Material::llover_material_aleatorio() {
 		this -> nombre_material = nombre_material_aleatorio;
 		this -> cantidad_material = MATERIAL_CONTENIDO_POR_CASILLERO;
 	}
+	return tipo_material;
 }
 
 string Material::obtener_tipo_material(int tipo_material){

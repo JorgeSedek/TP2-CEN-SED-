@@ -24,8 +24,8 @@ const int METAL = 2;
 
 const int CANT_MATERIALES = 3;
 const int CANT_MAX_PIEDRA = 2;
-const int CANT_MAX_MADERA = 1;
-const int CANT_MAX_METAL = 4;
+const int CANT_MAX_MADERA = 2;
+const int CANT_MAX_METAL = 3;
 const int CANT_MIN_PIEDRA = 1;
 const int CANT_MIN_MADERA = 0;
 const int CANT_MIN_METAL = 2;
@@ -43,7 +43,8 @@ class Material {
     int obtener_cantidad();
     void mostrar_material();
     void restar_costo(int costo);
-    void llover_material_aleatorio();
+    int llover_material_aleatorio();
+    void mostrar_informacion();
     
     private:
     int generar_cantidad_aleatoria(int tipo_material);

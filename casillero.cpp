@@ -21,6 +21,11 @@ Casillero* Casillero::crear_subcasillero(int fila, int columna, string tipo_casi
     return casillero_devuelto;
 }
 
+void Casillero::ocupar_casillero() {
+	esta_vacio = false;
+}
+
+
 string Casillero::obtener_tipo_casillero() {
 	return tipo_casillero;
 }

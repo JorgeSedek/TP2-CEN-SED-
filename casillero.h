@@ -23,6 +23,7 @@ class Casillero {
 	int obtener_columna();
 	string obtener_tipo_casillero();
 	Casillero* crear_subcasillero(int fila, int columna, string tipo_casillero);
+	void ocupar_casillero();
 	virtual void mostrar() = 0;
 	virtual void imprimir_casillero() = 0;
 	virtual int obtener_cantidad_contenida() = 0; 
@@ -37,7 +38,14 @@ class Casillero_transitable: public Casillero {
 	void asignar_material(Material material);
 	
 	void mostrar() {
-		cout << "Holiss" << endl; // DEBERIA MOSTRAR INFORMACION DEL CASILLERO
+		if (esta_vacio) {
+			cout << ENTER_COLOR << "-Soy un casillero transitable y me encuentro vacio." << END_COLOR << endl;
+		}
+		else {
+			cout << ENTER_COLOR << "-Soy un casillero transitable y no me encuentro vacio." << END_COLOR << endl;
+			material.mostrar_informacion();
+	    }
+		cout << endl;
 	}
 
 	void imprimir_casillero() {
@@ -72,7 +80,14 @@ class Casillero_construible: public Casillero {
 	Casillero_construible(int fila, int columna, string tipo_casillero);
 	
 	void mostrar() {
-		cout << "Holiss" << endl; // DEBERIA MOSTRAR INFORMACION DEL CASILLERO
+		if (esta_vacio) {
+			cout << ENTER_COLOR << "-Soy un casillero construible y me encuentro vacio" << END_COLOR << endl;
+			}
+		else {
+			cout << ENTER_COLOR << "Soy un casillero construible y no me encuentro vacio." << END_COLOR << endl;
+			edificio.mostrar_informacion();
+		}
+		cout << endl;
 	}
 
 	void imprimir_casillero() {
@@ -97,7 +112,8 @@ class Casillero_inaccesible: public Casillero {
 	Casillero_inaccesible(int fila, int columna, string tipo_casillero);
 	
 	void mostrar() {
-		cout << "Holiss" << endl; // DEBERIA MOSTRAR INFORMACION DEL CASILLERO
+		cout << ENTER_COLOR << "-Soy un casillero inaccesible y me encuentro vacio." << END_COLOR << endl;
+		cout << endl;
 	}
 
 	void imprimir_casillero() {

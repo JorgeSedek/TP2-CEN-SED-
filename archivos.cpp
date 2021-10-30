@@ -179,6 +179,7 @@ bool cargar_mapa(Mapa* &mapa) {
                 Casillero* casillero;
                 casillero = casillero -> crear_subcasillero(i, j, tipo_casillero);
                 mapa -> cargar_casillero(i, j, casillero);
+                mapa -> sumar_casillero_por_tipo(tipo_casillero);
             }
         }
     };

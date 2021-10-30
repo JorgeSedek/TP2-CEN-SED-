@@ -1,3 +1,4 @@
+#include <iostream>
 #include "edificio.h"
 
 Edificio::Edificio() {
@@ -53,4 +54,8 @@ void Edificio::asignar_materiales_producidos(string nombre_edificio) {
     if (nombre_edificio == FABRICA) {
         materiales_producidos = Material(I, PRODUCCION_FABRICA);
     }
+}
+
+void Edificio::mostrar_informacion() {
+	cout << ENTER_COLOR << "-Soy un/a " << obtener_nombre() << " y me encuentro en el casillero consultado." << END_COLOR << endl;
 }

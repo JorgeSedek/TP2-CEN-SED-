@@ -55,6 +55,7 @@ void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_material
             break;
         case 6:
             system(CLR_SCREEN);
+            mapa -> consultar_casillero();
             break;
         case 7:
             system(CLR_SCREEN);

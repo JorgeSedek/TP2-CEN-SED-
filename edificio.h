@@ -27,6 +27,7 @@ class Edificio {
     int obtener_limite_construccion();
     void asignar_materiales_producidos(string nombre_edificio);
     Material obtener_materiales_producidos();
+    void mostrar_informacion();
 };
 
 #endif // EDIFICIO_H_INCLUDED
