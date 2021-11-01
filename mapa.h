@@ -1,53 +1,47 @@
 #ifndef MAPA_H_INCLUDED
 #define MAPA_H_INCLUDED
 
+#include "ubicacion.h"
 #include "casillero.h"
 
-class Mapa {
+const int TIPOS_MATERIALES_LLUVIA = 3;
 
+class Mapa {
 	private:
-	//atributos
 	int filas;
 	int columnas;
+	int transitables_disponibles;
+	int construibles_disponibles;
+	int inaccesibles_disponibles;
 	Casillero*** matriz;
 
 	public:
-	//metodos
-
-	//constructor sin parametros
-	//pre:
-	//post: construye un objeto Mapa sin parametros
 	Mapa();
-
-	//constructor de parametros (filas, columnas)
-	//pre: filas del archivo > filas > 0, columnas del archivo > columnas > 0
-	//post:construye un objeto Mapa con parametros filas y columnas
 	Mapa(int filas, int columnas);
-
-	//pre:
-	//post:inicializa los casilleros sin parametros
-	void inicializar_casilleros();
-
-	//pre: filas > posicion_fila > 0, columnas > posicion_columna
-	//post: carga los parametros de casillero
+	void borrar();
+	int obtener_filas();
+	int obtener_columnas();
+	Casillero* obtener_casillero(int fila, int columna);
+	string obtener_tipo_casillero(int fila, int columna);
 	void cargar_casillero(int posicion_fila, int posicion_columna, Casillero* casillero);
-
-	//pre:
-	//post: imprime el mapa
 	void imprimir_mapa();
-
-	//pre:
-	//post:Devuelve informacion sobre el casillero, si es un casillero valido
+	void generar_lluvia_materiales();
+	void borrar_casillero(Casillero* casillero);
+	void sumar_casillero_por_tipo(string tipo_casillero);
 	void consultar_casillero();
-
+	void construir_edificio(int fila, int columna, Edificio edificio_a_construir);
+	
 	//pre:
-	//post: Genera aleatoriamente materiales en los casilleros validos vacios del mapa
-	void lluvia_materiales();
+	//post: recolecta recursos del mapa
+	void recolectar_recursos(Material *vector_materiales, int tipos_materiales,  Ubicacion *vector_ubicaciones,int edificios_construidos);
 
 	private:
-	//pre:filas > fila_ingresada > 0, columnas > columna_ingresada > 0
-	//post:le pide al usuario las coordenadas de la casilla que quiere consultar
-	void pedir_coordenadas_casillero(int &fila_ingresada, int &columna_ingresada);
+	bool puede_llover_mas(int &piedra_llovida, int &madera_llovida, int &metal_llovido, int material_llovido);
+	void imprimir_mensaje_lluvia(int piedra_llovida, int madera_llovida, int metal_llovido, int &total_llovido);
+	void pedir_coordenadas(int &fila_ingresada, int &columna_ingresada);
+	void pedir_fila(int &fila);
+	void pedir_columna(int &columna);
+	string encontrar_edificio(Ubicacion *vector_ubicaciones,int fila, int columna, int edificios_construidos);
 
 };
 

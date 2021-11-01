@@ -1,13 +1,12 @@
 #include <iostream>
 #include "menu.h"
-#include <ctime>
-#include <cstdlib>
+#include "ctime"
 
 using namespace std;
 
 int main() {
 
-	srand(time(NULL)); //semilla numeros aleatorios
+    srand(time(NULL));
     
     int tipos_de_materiales = 0;
     Material* vector_materiales = nullptr;
@@ -18,7 +17,7 @@ int main() {
     int edificios_construidos = 0;
     Ubicacion* vector_ubicaciones = nullptr;
 
-    Mapa mapa = Mapa();
+    Mapa* mapa;
     
     int opcion_elegida;
 
@@ -26,6 +25,8 @@ int main() {
     if (!cargar_edificios(vector_edificios, cantidad_edificios)) return 0;
     if (!cargar_ubicaciones(vector_ubicaciones, edificios_construidos)) return 0;
     if (!cargar_mapa(mapa)) return 0;
+
+    cargar_ubicaciones_mapa(mapa, vector_ubicaciones, edificios_construidos, vector_edificios, cantidad_edificios);
     
     mostrar_bienvenida();
 
@@ -45,7 +46,7 @@ int main() {
             cin.ignore(100, '\n');
         }
 
-        procesar_opcion(opcion_elegida, vector_materiales, tipos_de_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, mapa);
+        procesar_opcion(opcion_elegida, mapa, vector_materiales, tipos_de_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos);
         
     } while (opcion_elegida != 10);
     

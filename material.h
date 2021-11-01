@@ -1,69 +1,66 @@
 #ifndef MATERIAL_H_INCLUDED
 #define MATERIAL_H_INCLUDED
 
+#include <string>
 #include "system_clear.h"
 #include "colores.h"
-#include <string>
-#include <cstdlib>
 
 using namespace std;
 
-const string VACIO = "";
 const string S = "piedra";
 const string W = "madera";
 const string I = "metal";
-
-const int PIEDRA = 0;
-const int MADERA = 1;
-const int METAL = 2;
-const int CANT_MATERIALES = 3;
-const int CANT_MAX_PIEDRA = 2;
-const int CANT_MAX_MADERA = 1;
-const int CANT_MAX_METAL = 4;
-const int CANT_MIN_PIEDRA = 1;
-const int CANT_MIN_MADERA = 0;
-const int CANT_MIN_METAL = 2;
-
-
+const string VACIO = "";
 
 const int PRODUCCION_MINA = 15;
 const int PRODUCCION_ASERRADERO = 25;
 const int PRODUCCION_FABRICA = 40;
 const int SIN_MATERIAL = 0;
+const int MATERIAL_CONTENIDO_POR_CASILLERO = 1;
+
+const int PIEDRA = 0;
+const int MADERA = 1;
+const int METAL = 2;
+
+const int CANT_MATERIALES = 3;
+const int CANT_MAX_PIEDRA = 2;
+const int CANT_MAX_MADERA = 2;
+const int CANT_MAX_METAL = 3;
+const int CANT_MIN_PIEDRA = 1;
+const int CANT_MIN_MADERA = 0;
+const int CANT_MIN_METAL = 2;
 
 class Material {
 
     private:
-	//atributos
     string nombre_material;
     int cantidad_material;
 
     public:
-    //metodos
     Material();
     Material(string nombre_material, int cantidad_material);
     string obtener_nombre();
     int obtener_cantidad();
     void mostrar_material();
     void restar_costo(int costo);
-
-    //pre:
-    //post:genera un material de forma aleatoria
-    void generar_material();
-
-    //pre:
-    //post: muestra un mensaje con informacion del material
-    void mostrar();
+    int llover_material_aleatorio();
+    void mostrar_informacion();
+    
+    //pre: produccion del edificio = cantidad_producida >= 0
+    //post: adicciona la cantidad producida por el edificio
+    void producir_material(string nombre_edificio);
 
     private:
-    //pre: tipo_material pertenece a [PIEDRA, MADERA, METAL],osea 1,2,3 respectivamente
-    //post: devuelve la cantidad aleatoria según que material sea
-    int generar_cant_aleatoria(int tipo_material);
+    int generar_cantidad_aleatoria(int tipo_material);
+    string obtener_tipo_material(int tipo_material);
 
-    //pre: tipo_material pertenece a [PIEDRA, MADERA, METAL],osea 1,2,3 respectivamente
-    //post: convierte numero aleatorio en el nombre del material(string)
-    string convertir_num_aleatorio_a_string(int tipo_material);
+    //pre:
+    //post: devuelve el tipo de material que produce un edificio
+    string devolver_nombre_material_producido(string nombre_edificio);
 
+    int asignar_cantidad_recolectada(string nombre_edificio);
 };
+
+
 
 #endif // MATERIAL_H_INCLUDED

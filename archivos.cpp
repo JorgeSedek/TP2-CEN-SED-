@@ -152,7 +152,7 @@ void agregar_ubicacion(Ubicacion* &vector_ubicaciones, Ubicacion ubicacion, int 
     edificios_construidos++;
 }
 
-bool cargar_mapa(Mapa &mapa) {
+bool cargar_mapa(Mapa* &mapa) {
 
     ifstream archivo(PATH_MAPA);
     int filas;
@@ -169,19 +169,38 @@ bool cargar_mapa(Mapa &mapa) {
         archivo >> filas;
         archivo >> columnas;
 
-        Mapa nuevo_mapa(filas, columnas);
+        Mapa* nuevo_mapa = new Mapa(filas, columnas);
+        mapa = nuevo_mapa;
         
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 
                 archivo >> tipo_casillero;
-                Casillero* casillero = crear_casillero(i, j, tipo_casillero);
-                nuevo_mapa.cargar_casillero(i, j, casillero);
+                Casillero* casillero;
+                casillero = casillero -> crear_subcasillero(i, j, tipo_casillero);
+                mapa -> cargar_casillero(i, j, casillero);
+                mapa -> sumar_casillero_por_tipo(tipo_casillero);
             }
         }
-
-        mapa = nuevo_mapa;
     };
     archivo.close();
     return 1;
+}
+
+string obtener_nombre_material(int posicion) {
+    
+    string nombre_material;
+    
+    switch (posicion) {
+        case PIEDRA:
+        nombre_material = "piedra";
+        break;
+        case MADERA:
+        nombre_material = "madera";
+        break;
+        case METAL:
+        nombre_material = "metal";
+    }
+
+    return nombre_material;
 }

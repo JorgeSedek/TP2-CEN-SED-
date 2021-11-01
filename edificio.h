@@ -2,15 +2,18 @@
 #define EDIFICIO_H_INCLUDED
 
 #include "material.h"
-#include <iostream>
 
 using namespace std;
 
 const int MATERIALES_UTILIZADOS_EDIFICIOS = 3;
 const int NO_HAY_CONSTRUIDO = 0;
-const string MINA = "mina";
-const string ASERRADERO = "aserradero";
-const string FABRICA = "fabrica";
+
+const string M = "mina";
+const string A = "aserradero";
+const string F = "fabrica";
+const string E = "escuela";
+const string O = "obelisco";
+const string P = "planta electrica";
 
 class Edificio {
     private:
@@ -28,10 +31,7 @@ class Edificio {
     int obtener_limite_construccion();
     void asignar_materiales_producidos(string nombre_edificio);
     Material obtener_materiales_producidos();
-
-    //pre:
-    //post: Muestra un mensaje con informacion sobre el edificio
-    void mostrar();
+    void mostrar_informacion();
 };
 
 #endif // EDIFICIO_H_INCLUDED

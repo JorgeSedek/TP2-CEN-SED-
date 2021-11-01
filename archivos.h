@@ -1,7 +1,9 @@
 #ifndef ARCHIVOS_H
 #define ARCHIVOS_H
 
-#include "utilidades.h"
+#include "mapa.h"
+#include "ubicacion.h"
+#include "edificio.h"
 
 const string PATH_EDIFICIOS = "edificios.txt";
 const string PATH_MATERIALES = "materiales.txt";
@@ -30,6 +32,7 @@ void agregar_edificio(Edificio* &vector_edificios, Edificio edificio, int &canti
 
 bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construidos);
 void agregar_ubicacion(Ubicacion* &vector_ubicaciones, Ubicacion ubicacion, int &edificios_construidos);
-bool cargar_mapa(Mapa &mapa);
+bool cargar_mapa(Mapa* &mapa);
+string obtener_nombre_material(int posicion);
 
 #endif // ARCHIVOS_H

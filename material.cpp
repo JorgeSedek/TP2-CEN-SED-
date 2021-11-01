@@ -27,40 +27,23 @@ void Material::restar_costo(int costo) {
     cantidad_material -= costo;
 }
 
-void Material::mostrar(){
-	cout << "Soy una " << obtener_nombre() << " y me encuentro en el casillero consultado" << endl;
+void Material::mostrar_informacion() {
+	cout << SUCESS_COLOR << "-Soy un/a " << obtener_nombre() << " y me encuentro en el casillero consultado." << END_COLOR << endl;
 }
 
-void Material::generar_material(){
+int Material::llover_material_aleatorio() {
 
-		int tipo_material = (rand() % CANT_MATERIALES - 1) + 1 ;
-		int cant_aleatoria = generar_cant_aleatoria(tipo_material);
-		string nombre_material_aleatorio = convertir_num_aleatorio_a_string(tipo_material);
-		if (nombre_material == VACIO || (nombre_material == nombre_material_aleatorio && cantidad_material == SIN_MATERIAL)){
-		Material Material(nombre_material_aleatorio, cant_aleatoria);
-		}
-}
-
-int Material::generar_cant_aleatoria(int tipo_material){
-	int cant_material;
-
-	switch(tipo_material){
-		case PIEDRA:
-			cant_material = (rand() % CANT_MAX_PIEDRA) + CANT_MIN_PIEDRA;
-			break;
-		case MADERA:
-			cant_material = (rand() % CANT_MAX_MADERA) + CANT_MIN_MADERA;
-			break;
-		case METAL:
-			cant_material = (rand() % CANT_MAX_METAL) + CANT_MIN_METAL;
-			break;
-
+	int tipo_material = rand() % CANT_MATERIALES;
+	string nombre_material_aleatorio = obtener_tipo_material(tipo_material);
+		
+	if (nombre_material == VACIO || cantidad_material) {
+		this -> nombre_material = nombre_material_aleatorio;
+		this -> cantidad_material = MATERIAL_CONTENIDO_POR_CASILLERO;
 	}
-
-	return cant_material;
+	return tipo_material;
 }
 
-string Material::convertir_num_aleatorio_a_string(int tipo_material){
+string Material::obtener_tipo_material(int tipo_material){
 	string nombre_material;
 
 	switch(tipo_material){
@@ -75,7 +58,71 @@ string Material::convertir_num_aleatorio_a_string(int tipo_material){
 			break;
 
 	}
-
 	return nombre_material;
+}
+
+void Material::producir_material(string nombre_edificio){
+	string nombre_material = devolver_nombre_material_producido(nombre_edificio);
+	if (this -> nombre_material == nombre_material){
+		cantidad_material += asignar_cantidad_recolectada(nombre_edificio);
+	}
+	}
+
+
+string Material::devolver_nombre_material_producido(string nombre_edificio){
+	string nombre_material = VACIO;
+	if (nombre_edificio == "mina"){
+		nombre_material = S;
+	}
+	else
+	if (nombre_edificio == "aserradero"){
+		nombre_material = W;
+	}
+	else
+	if (nombre_edificio == "fabrica"){
+		nombre_material = I;
+	}
+	else
+	if (nombre_edificio == "escuela"){
+		nombre_material == VACIO;
+	}
+	else
+	if (nombre_edificio == "obeliscio"){
+		nombre_material == VACIO;
+	}
+	else
+	if (nombre_edificio == "planta electrica"){
+		nombre_material == VACIO;
+	}
+	return nombre_material;
+}
+
+int Material::asignar_cantidad_recolectada(string nombre_edificio){
+	int cantidad_material = SIN_MATERIAL;
+	if (nombre_edificio == "mina"){
+		cantidad_material = PRODUCCION_MINA;
+	}
+	else
+	if (nombre_edificio == "aserradero"){
+		cantidad_material = PRODUCCION_ASERRADERO;
+	}
+	else
+	if (nombre_edificio == "fabrica"){
+		cantidad_material = PRODUCCION_FABRICA;
+	}
+	else
+	if (nombre_edificio == "escuela"){
+		cantidad_material == SIN_MATERIAL;
+	}
+	else
+	if (nombre_edificio == "obeliscio"){
+		cantidad_material == SIN_MATERIAL;
+	}
+	else
+	if (nombre_edificio == "planta electrica"){
+		cantidad_material == SIN_MATERIAL;
+	}
+	return cantidad_material;
 
 }
+

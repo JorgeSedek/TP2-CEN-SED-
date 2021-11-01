@@ -1,46 +1,28 @@
-#ifndef UBICACION_H_
-#define UBICACION_H_
+#ifndef UBICACION_H_INCLUDED
+#define UBICACION_H_INCLUDED
 
 #include <string>
 
-class Ubicacion{
+using namespace std;
+
+const int CANTIDAD_COORDENADAS = 2;
+const int FILA = 0;
+const int COLUMNA = 1;
+
+class Ubicacion {
 	private:
-	//atributos
-	std::string nombre;
+	string nombre;
 	int fila;
 	int columna;
 
 	public:
-	//metodos
-
-	//constructor sin parametros
-	//pre:
-	//post: crea un objeto tipo ubicacion sin parametros
 	Ubicacion();
-
-	//constructor con parametros fila, columna y nombre
-	//pre:
-	//post: crea un objeto con parametros fila,columna y nombre
-	Ubicacion(std::string nombre, std::string fila, std::string columna);
-
-	//pre:
-	//post: devuelve el nombre del edificio
-	std::string obtener_nombre();
-
-	//pre:
-	//post: devuelve la cantidad de filas
+	Ubicacion(string nombre, int fila, int columna);
+	Ubicacion(string nombre, string fila, string columna);
+	string obtener_nombre();
 	int obtener_fila();
-
-	//pre:
-	//post: devuelve la cantidad de columnas
 	int obtener_columna();
-
-	//ṕre:
-	//post: pasa una cadena de caracteres a integer
-	int limpiar_string(std::string cadena, int posicion_inicial, char str_tope);
-
+	int limpiar_string(string cadena, int posicion_inicial, char str_tope);
 };
 
-
-
-#endif /* UBICACION_H_ */
+#endif // UBICACION_H_INCLUDED
