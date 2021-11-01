@@ -1,109 +1,192 @@
-/*
- * mapa.cpp
- *
- *  Created on: 25 oct. 2021
- *      Author: jorge
- */
-
-
-
-/*
- * mapa.cpp
- *
- *  Created on: 24 oct. 2021
- *      Author: jorge
- */
-
 #include "mapa.h"
 
+Mapa::Mapa() {}
 
+Mapa::Mapa(int filas, int columnas) {
 
-int Mapa::obtener_fila(){
-	return fila;
+	this -> filas = filas;
+	this -> columnas = columnas;
+	this -> transitables_disponibles = 0;
+	this -> construibles_disponibles = 0;
+	this -> inaccesibles_disponibles = 0;
+	this -> matriz = new Casillero** [filas];
+
+    for (int i = 0; i < filas; i++) {
+        matriz[i] = new Casillero* [columnas];
+    }
 }
 
-int Mapa::obtener_columna(){
-	return columna;
+void Mapa::borrar() {
+
+	for (int i = 0; i < filas; i++) {
+
+		for (int j = 0; j < columnas; j++) {
+			delete matriz[i][j];
+		}
+
+		delete[] matriz[i];
+	}
+
+	delete[] matriz;
+	this -> matriz = nullptr;
 }
 
-void Mapa::inicializar_casilleros(char** tipo_terrenos){
-	Casillero casillero();
-	for( int j = 0; j < obtener_columna(); j++){
-		for( int i = 0; i < obtener_fila(); i++){
-			casillero = inicializar_casillero(tipo_terrenos[i][j], fila, columna);
-			casilleros.cambiar(i, j, casillero);
+int Mapa::obtener_filas() {
+	return filas;
+}
 
+int Mapa::obtener_columnas() {
+	return columnas;
+}
+
+void Mapa::cargar_casillero(int posicion_fila, int posicion_columna, Casillero* casillero) {
+	matriz[posicion_fila][posicion_columna] = casillero;
+}
+
+void Mapa::imprimir_mapa() {
+
+	string coordenas_columnas = "    ";
+	string lineas_columnas = "  -";
+
+	cout << SUCESS_COLOR << "Este es el mapa de la ciudad: " << endl;
+	cout << END_COLOR << endl;
+
+	for (int c = 0; c < columnas; c++) {
+		coordenas_columnas += to_string(c + 1) + "   ";
+		lineas_columnas += "----";
+	}
+
+	cout << ENTER_COLOR << coordenas_columnas << endl;
+	cout << ENTER_COLOR << lineas_columnas << endl;
+
+	for (int i = 0; i < filas; i++) {
+		cout << ENTER_COLOR << i + 1 << " |" << END_COLOR;
+		for (int j = 0; j < columnas; j++) {
+			matriz[i][j] -> imprimir_casillero();
+			cout << ENTER_COLOR << "|" << END_COLOR;
+		}
+		cout << endl;
+		cout << ENTER_COLOR << lineas_columnas << endl;
+	}
+	cout << END_COLOR << endl;
+}
+
+void Mapa::generar_lluvia_materiales() {
+
+	int piedra_llovida = rand() % CANT_MAX_PIEDRA + CANT_MIN_PIEDRA;
+	int madera_llovida = rand() % CANT_MAX_MADERA + CANT_MIN_MADERA;
+	int metal_llovido = rand() % CANT_MAX_METAL + CANT_MIN_METAL;
+
+	int total_llovido = piedra_llovida + madera_llovida + metal_llovido;
+	int material_llovido;
+
+	imprimir_mensaje_lluvia(piedra_llovida, madera_llovida, metal_llovido, total_llovido);
+	
+	for (int i = 0; i < filas && total_llovido; i++) {
+		for (int j = 0; j < columnas && total_llovido; j++) {
+
+			if (matriz[i][j] -> obtener_tipo_casillero() == TRANSITABLE && !matriz[i][j] -> obtener_cantidad_contenida()) {
+
+				Material nuevo_material = Material();
+				material_llovido = nuevo_material.llover_material_aleatorio();
+
+				if (puede_llover_mas(piedra_llovida, madera_llovida, metal_llovido, material_llovido)) {
+
+					borrar_casillero(matriz[i][j]);
+
+					Casillero_transitable* transitable = new Casillero_transitable(i, j, TRANSITABLE);
+					transitable -> asignar_material(nuevo_material);
+
+					matriz[i][j] = transitable;
+					matriz[i][j] -> ocupar_casillero();
+
+					transitables_disponibles--;
+					total_llovido--;
+				}
+			}	
+		}
+	}
+}
+
+void Mapa::imprimir_mensaje_lluvia(int piedra_llovida, int madera_llovida, int metal_llovido, int &total_llovido) {
+
+	if (transitables_disponibles) {
+		cout << ENTER_COLOR << "Se ha generado una lluvia de materiales." << endl;
+		cout << SUCESS_COLOR << endl;
+		cout << "-Han llovido " << piedra_llovida << " piedras." << endl;
+		cout << "-Han llovido " << madera_llovida << " maderas." << endl;
+		cout << "-Han llovido " << metal_llovido << " metales." << endl;
+		cout << END_COLOR << endl;
+	}
+	else {
+		cout << ERROR_COLOR << "-No ha llovido por falta de casilleros transitables libres." << END_COLOR << endl;
+		cout << endl;
+		total_llovido = 0;
+	}
+}
+
+bool Mapa::puede_llover_mas(int &piedra_llovida, int &madera_llovida, int &metal_llovido, int material_llovido) {
+
+	bool puede_llover_mas = true;
+
+	if (material_llovido == PIEDRA) {
+		if ((piedra_llovida - 1) >= 0) {
+			piedra_llovida--;
+		}
+		else {
+			puede_llover_mas = false;
 		}
 	}
 
+	if (material_llovido == MADERA) {
+		if ((madera_llovida - 1) >= 0) {
+			madera_llovida--;
+		}
+		else {
+			puede_llover_mas = false;
+		}
 	}
 
-
-Casillero Mapa::inicializar_casillero(char tipo_terreno, int fila, int columna){
-	Casillero casillero();
-	switch(tipo_terreno){
-	case 'L':
-		Casillero_inacesible casillero_inacesible(fila, columna, true);
-		casillero = casillero_inacesible;
-		break;
-	case 'T':
-		/*
-		 Aca hay que agrega un booleano que diga si hay un edificio en el casillero
-		 y dividir en 2 constructores de Casiller_construible
-		 */
-
-		Casillero_construible casillero_construible(fila, columna, true);
-		casillero = casillero_construible;
-		break;
-	case 'C':
-		/*
-		Aca hay que agrega un booleano que diga si hay un material en el casillero
-		y dividir en 2 constructores de Casiller_construible
-		*/
-
-		Casillero_transitable casillero_transitable(fila, columna, true);
-		casillero = casillero_transitable;
+	if (material_llovido == METAL) {
+		if ((metal_llovido - 1) >= 0) {
+			metal_llovido--;
+		}
+		else {
+			puede_llover_mas = false;
+		}
 	}
-	return casillero;
+
+	return puede_llover_mas;
 }
 
-/*
-//Debe haber una mejor manera de hacer esto
-string convertir_caracter_a_palabra(string letra){
+void Mapa::borrar_casillero(Casillero* casillero) {
+	delete casillero;
+}
 
-	string palabra;
-	switch(letra){
-	case 'M':
-		palabra = "Mina";
-		break;
-	case 'A':
-		palabra = "Aserradero";
-		break;
-	case 'F':
-		palabra = "Fabrica";
-		break;
-	case 'E':
-		palabra = "Escuela";
-		break;
-	case 'O':
-		palabra = "Obelisco";
-		break;
-	case 'P':
-		palabra = "Planta electrica";
-		break;
-	case 'W':
-		palabra = "Madera";
-		break;
-	case 'S':
-		palabra = "Piedra";
-		break;
-	case 'I':
-		palabra = "Metal";
-		break;
-	default:
-		palabra = "Entrada invalida";
+void Mapa::sumar_casillero_por_tipo(string tipo_casillero) {
 
+	if (tipo_casillero == TRANSITABLE) {
+		transitables_disponibles++;
 	}
-	return palabra;
-}*/
+	
+	if (tipo_casillero == CONSTRUIBLE) {
+		construibles_disponibles++;
+	}
+	
+	if (tipo_casillero == INACCESIBLE) {
+		inaccesibles_disponibles++;
+	}
+}
 
+void Mapa::consultar_casillero() {
+	int fila_ingresada, columna_ingresada;
+	pedir_coordenadas_casillero(fila_ingresada, columna_ingresada);
+	matriz[fila_ingresada - 1][columna_ingresada - 1] -> mostrar();
+}
+
+void Mapa::pedir_coordenadas_casillero(int &fila_ingresada, int &columna_ingresada) {
+	cout << SUCESS_COLOR <<"Por favor, ingrese la fila del casillero que desea consultar: " << END_COLOR << endl;
+	cin >> fila_ingresada;
+	cout << SUCESS_COLOR << "Por favor, ingrese la columna del casillero que desea consultar: " << END_COLOR << endl;
+	cin >> columna_ingresada;
+}

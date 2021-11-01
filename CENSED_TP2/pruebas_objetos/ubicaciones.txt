@@ -1,0 +1,9 @@
+aserradero (2, 3)
+aserradero (9, 3)
+fabrica (4, 2)
+fabrica (7, 9)
+yacimiento (4, 8)
+<<<<<<< HEAD
+planta electrica nacional fronteriza (4, 1)
+=======
+>>>>>>> 6d37fb58a82d55530f82141e1956555915b71330

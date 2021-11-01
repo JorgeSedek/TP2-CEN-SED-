@@ -1,143 +1,128 @@
-/*
- * casillero.h
- *
- *  Created on: 24 oct. 2021
- *      Author: jorge
- */
-
-#ifndef CASILLERO_H_
-#define CASILLERO_H_
+#ifndef CASILLERO_H_INCLUDED
+#define CASILLERO_H_INCLUDED
 
 #include <iostream>
 #include <string>
-#include "material.h"
 #include "edificio.h"
 
-class Casillero{
+const string TRANSITABLE = "C";
+const string CONSTRUIBLE = "T";
+const string INACCESIBLE = "L";
+
+class Casillero {
+	
 	protected:
-	//atributos
 	int fila;
 	int columna;
-	bool esta_vacio;
+	string tipo_casillero;
+	bool esta_vacio; 
 
 	public:
-	//constructor sin parametros
-	//pre:
-	//post: construye un objeto casillero sin parametros
 	Casillero();
-
-
-	//constructor con parametros fila, columna y esta_vacio
-	//pre:
-	//post: construye un objeto casillero con parametros
-	Casillero(int fila, int columna, bool esta_vacio);
-
-	//pre:
-	//post: devuelve fila
 	int obtener_fila();
-
-	//pre:
-	//post: devuelve columna
 	int obtener_columna();
-
-	//pre:
-	//post: muestra que tipo de casillero es y si esta vacio
+	string obtener_tipo_casillero();
+	Casillero* crear_subcasillero(int fila, int columna, string tipo_casillero);
+	void ocupar_casillero();
 	virtual void mostrar() = 0;
+	virtual void imprimir_casillero() = 0;
+	virtual int obtener_cantidad_contenida() = 0; 
 };
 
-class Casillero_transitable: public Casillero{
+class Casillero_transitable: public Casillero {
 	private:
-	//atributos
 	Material material;
 
 	public:
-	//constructor sin parametros
-	//pre:
-	//post: construye un objeto casillero sin parametros
-	Casillero_transitable();
-
-	//constructor con parametros fila, columna y esta_vacio
-	//pre:
-	//post: construye un objeto casillero con parametros
-	Casillero_transitable(int fila, int columna, bool esta_vacio, Material material);
-
-	//constructor con parametros fila, columna y esta_vacio
-	//pre:
-	//post: construye un objeto casillero con parametros
-	Casillero_transitable(int fila, int columna, bool esta_vacio);
-
-	//pre:
-	//post: muestra mensaje correspodiente a casillero
-	void mostrar(){
-		if (esta_vacio){
-			cout << "soy un casillero transitable y me encuentro vacio" << endl;
-			}
-		else{
-			cout << "soy un casillero transitable y no me encuentro vacio" << endl;
-			//cout << material.mostrar() << endl;
+	Casillero_transitable(int fila, int columna, string tipo_casillero);
+	void asignar_material(Material material);
+	
+	void mostrar() {
+		if (esta_vacio) {
+			cout << ENTER_COLOR << "-Soy un casillero transitable y me encuentro vacio." << END_COLOR << endl;
 		}
+		else {
+			cout << ENTER_COLOR << "-Soy un casillero transitable y no me encuentro vacio." << END_COLOR << endl;
+			material.mostrar_informacion();
+	    }
+		cout << endl;
+	}
+
+	void imprimir_casillero() {
+
+		string material_contenido = "   ";
+
+		if (material.obtener_nombre() == S && material.obtener_cantidad()) {
+			material_contenido = " S ";
+		}
+
+		if (material.obtener_nombre() == W && material.obtener_cantidad()) {
+			material_contenido = " W ";
+		}
+
+		if (material.obtener_nombre() == I && material.obtener_cantidad()) {
+			material_contenido = " I ";
+		}
+
+		cout << CAMINO << NEGRO << material_contenido << END_COLOR;
+	}
+
+	int obtener_cantidad_contenida() {
+		return material.obtener_cantidad();
 	}
 };
 
-class Casillero_construible: public Casillero{
+class Casillero_construible: public Casillero {
 	private:
-	//atributos
 	Edificio edificio;
 
 	public:
-	//constructor sin parametros
-	//pre:
-	//post: construye un objeto casillero sin parametros
-	Casillero_construible();
-
-	//constructor con parametros fila, columna y esta_vacio
-	//pre:
-	//post: construye un objeto casillero con parametros
-	Casillero_construible(int fila, int columna, bool esta_vacio);
-
-	//constructor con parametros fila, columna y esta_vacio
-	//pre:
-	//post: construye un objeto casillero con parametros
-	Casillero_construible(int fila, int columna, bool esta_vacio, Edificio edificio);
+	Casillero_construible(int fila, int columna, string tipo_casillero);
 	
-	Edificio obtener_edificio(){
-		
-		return edificio;
-	}
-
-
-	void mostrar(){
-		if (esta_vacio){
-			cout << "soy un casillero construible y me encuentro vacio" << endl;
+	void mostrar() {
+		if (esta_vacio) {
+			cout << ENTER_COLOR << "-Soy un casillero construible y me encuentro vacio" << END_COLOR << endl;
 			}
-		else{
-			cout << "soy un casillero construible y no me encuentro vacio" << endl;
-			//cout << edificio.mostrar() << endl;
+		else {
+			cout << ENTER_COLOR << "Soy un casillero construible y no me encuentro vacio." << END_COLOR << endl;
+			edificio.mostrar_informacion();
 		}
+		cout << endl;
+	}
+
+	void imprimir_casillero() {
+		cout << TERRENO << NEGRO << "   " << END_COLOR;
+		
+	}
+
+	int obtener_cantidad_contenida() {
+		
+		int existe_edificio = 0;
+
+		if (edificio.obtener_nombre() != "") {
+			existe_edificio = 1;
+		}
+
+		return existe_edificio;
 	}
 };
 
-class Casillero_inacesible: public Casillero{
-
-	//metodos
-
+class Casillero_inaccesible: public Casillero {
 	public:
-
-	//constructor sin parametros
-	//pre:
-	//post: construye un objeto casillero sin parametros
-	Casillero_inacesible();
-
-	//constructor con parametros fila, columna y esta_vacio
-	//pre:
-	//post: construye un objeto casillero con parametros
-	Casillero_inacesible(int fila, int columna, bool esta_vacio);
-
-	void mostrar(){
-		cout << "soy un casillero inacesible y me encuentro vacio" << endl;
+	Casillero_inaccesible(int fila, int columna, string tipo_casillero);
+	
+	void mostrar() {
+		cout << ENTER_COLOR << "-Soy un casillero inaccesible y me encuentro vacio." << END_COLOR << endl;
+		cout << endl;
 	}
 
+	void imprimir_casillero() {
+		cout << LAGO << NEGRO << "   " << END_COLOR;
+	}
+
+	int obtener_cantidad_contenida() {
+		return 0;
+	}
 };
 
-
-#endif /* CASILLERO_H_ */
+#endif // CASILLERO_H_INCLUDED

@@ -1,61 +1,58 @@
-/*
- * casillero.cpp
- *
- *  Created on: 24 oct. 2021
- *      Author: jorge
- */
-
 #include "casillero.h"
 
-Casillero::Casillero(){
-	this -> fila = 0;
-	this -> columna = 0;
-	this -> esta_vacio = false;
+Casillero::Casillero() {}
+
+Casillero* Casillero::crear_subcasillero(int fila, int columna, string tipo_casillero) {
+
+	Casillero* casillero_devuelto;
+
+    if (tipo_casillero == "T") {
+		casillero_devuelto = new Casillero_construible(fila, columna, tipo_casillero);
+	}
+
+	if (tipo_casillero == "C") {
+		casillero_devuelto = new Casillero_transitable(fila, columna, tipo_casillero);
+	}
+
+    if (tipo_casillero == "L") {
+        casillero_devuelto = new Casillero_inaccesible(fila, columna, tipo_casillero);
+    }
+
+    return casillero_devuelto;
 }
 
-Casillero::Casillero(int fila, int columna, bool esta_vacio){
+void Casillero::ocupar_casillero() {
+	esta_vacio = false;
+}
+
+
+string Casillero::obtener_tipo_casillero() {
+	return tipo_casillero;
+}
+
+Casillero_transitable::Casillero_transitable(int fila, int columna, string tipo_casillero) : Casillero() {
 	this -> fila = fila;
 	this -> columna = columna;
-	this -> esta_vacio = esta_vacio;
+	this -> tipo_casillero = tipo_casillero;
+	this -> esta_vacio = true;
+	this -> material = Material();
 }
 
-Casillero_transitable::Casillero_transitable() : Casillero() {
-
-	Material material();
-
-}
-
-Casillero_transitable::Casillero_transitable(int fila, int columna, bool esta_vacio, Material material) : Casillero(fila, columna, esta_vacio){
-
+void Casillero_transitable::asignar_material(Material material) {
 	this -> material = material;
 }
 
-Casillero_transitable::Casillero_transitable(int fila, int columna, bool esta_vacio) : Casillero(fila, columna, esta_vacio){
-
-	Material material();
-
+Casillero_construible::Casillero_construible(int fila, int columna, string tipo_casillero) : Casillero() {
+	this -> fila = fila;
+	this -> columna = columna;
+	this -> tipo_casillero = tipo_casillero;
+	this -> esta_vacio = true;
+	this -> edificio = Edificio();
 }
 
-Casillero_construible::Casillero_construible() : Casillero() {
-
-	Edificio edificio();
-}
-
-Casillero_construible::Casillero_construible(int fila, int columna, bool esta_vacio) : Casillero(fila, columna, esta_vacio) {
-
-	Edificio edificio();
-
-}
-
-Casillero_construible::Casillero_construible(int fila, int columna, bool esta_vacio, Edificio edificio) : Casillero(fila, columna, esta_vacio) {
-
-	this -> edificio = edificio;
-}
-
-Casillero_inacesible::Casillero_inacesible() : Casillero() {
-
-}
-
-Casillero_inacesible::Casillero_inacesible(int fila, int columna, bool esta_vacio) : Casillero(fila, columna, esta_vacio) {
-
+Casillero_inaccesible::Casillero_inaccesible(int fila, int columna, string tipo_casillero) : Casillero() {
+	this -> fila = fila;
+	this -> columna = columna;
+	this -> tipo_casillero = tipo_casillero;
+	this -> esta_vacio = true;
 }

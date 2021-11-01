@@ -1,75 +1,36 @@
-/*
- * mapa.h
- *
- *  Created on: 25 oct. 2021
- *      Author: jorge
- */
+#ifndef MAPA_H_INCLUDED
+#define MAPA_H_INCLUDED
 
-#ifndef MAPA_H_
-#define MAPA_H_
-
-#include "ubicacion.h"
 #include "casillero.h"
-#include "matriz.h"
-#include "vector.h"
-#include "material.h"
-#include "edificio.h"
 
+const int TIPOS_MATERIALES_LLUVIA = 3;
 
-
-
-class Mapa{
+class Mapa {
 	private:
-	//atributos
-	char** tipo_terrenos;
-	//Vector<Ubicacion> ubicaciones;
-	Matriz<Casillero> casilleros;
-	int fila;
-	int columna;
+	int filas;
+	int columnas;
+	int transitables_disponibles;
+	int construibles_disponibles;
+	int inaccesibles_disponibles;
+	Casillero*** matriz;
+
 	public:
-
-	//constructor sin parametros
-	//pre:
-	//post: construye un mapa sin parametros
 	Mapa();
-
-	//constructor con parametros tipo_terrenos y ubicaciones
-	//pre:
-	//post: construye un Mapa con las coordenadas de ubicaciones y tipo_terrenos
-	//Mapa(char** tipo_terrenos, Vector<Ubicacion> ubicaciones, int fila, int columna);
-
-	//destructor
-	//pre:
-	//post: libera memoria
-	~Mapa();
-
-	//pre:
-	//post: muestra el mapa
-	void mostrar();
-
-	int obtener_fila();
-
-	int obtener_columna();
-
+	Mapa(int filas, int columnas);
+	void borrar();
+	int obtener_filas();
+	int obtener_columnas();
+	void cargar_casillero(int posicion_fila, int posicion_columna, Casillero* casillero);
+	void imprimir_mapa();
+	void generar_lluvia_materiales();
+	void borrar_casillero(Casillero* casillero);
+	void sumar_casillero_por_tipo(string tipo_casillero);
+	void consultar_casillero();
+	
 	private:
-	//pre:
-	//post: inicializa los casilleros
-	Casillero inicializar_casillero(char tipo_terreno, int fila, int columna);
-
-	void inicializar_casilleros(char** tipo_terrenos);
-
-	string convertir_caracter_a_palabra(string letra);
-
-	//pre:
-	//post:indica si hay un edificio en el casillero
-	bool esta_vacio(string nombre_edificio);
-
-	//pre: fila> fila > 0, columna > columna > 0, largo >posicion > 0
-	//post: indica si las coordenadas del mapa coinciden con las coordenadas de un edificio o material
-
+	bool puede_llover_mas(int &piedra_llovida, int &madera_llovida, int &metal_llovido, int material_llovido);
+	void imprimir_mensaje_lluvia(int piedra_llovida, int madera_llovida, int metal_llovido, int &total_llovido);
+	void pedir_coordenadas_casillero(int &fila_ingresada, int &columna_ingresada);
 };
 
-
-
-
-#endif /* MAPA_H_ */
+#endif // MAPA_H_INCLUDED
