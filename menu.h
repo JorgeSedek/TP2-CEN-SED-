@@ -1,7 +1,6 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "archivos.h"
 #include "utilidades.h"
 
 const int OPCION_MINIMA = 1;

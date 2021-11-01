@@ -186,3 +186,21 @@ bool cargar_mapa(Mapa* &mapa) {
     archivo.close();
     return 1;
 }
+
+string obtener_nombre_material(int posicion) {
+    
+    string nombre_material;
+    
+    switch (posicion) {
+        case PIEDRA:
+        nombre_material = "piedra";
+        break;
+        case MADERA:
+        nombre_material = "madera";
+        break;
+        case METAL:
+        nombre_material = "metal";
+    }
+
+    return nombre_material;
+}

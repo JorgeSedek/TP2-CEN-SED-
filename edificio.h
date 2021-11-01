@@ -7,9 +7,13 @@ using namespace std;
 
 const int MATERIALES_UTILIZADOS_EDIFICIOS = 3;
 const int NO_HAY_CONSTRUIDO = 0;
-const string MINA = "mina";
-const string ASERRADERO = "aserradero";
-const string FABRICA = "fabrica";
+
+const string M = "mina";
+const string A = "aserradero";
+const string F = "fabrica";
+const string E = "escuela";
+const string O = "obelisco";
+const string P = "planta electrica";
 
 class Edificio {
     private:

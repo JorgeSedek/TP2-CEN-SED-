@@ -39,6 +39,14 @@ int Mapa::obtener_columnas() {
 	return columnas;
 }
 
+Casillero* Mapa::obtener_casillero(int fila, int columna) {
+	return matriz[fila][columna];
+}
+
+string Mapa::obtener_tipo_casillero(int fila, int columna) {
+	return matriz[fila][columna] -> obtener_tipo_casillero();
+}
+
 void Mapa::cargar_casillero(int posicion_fila, int posicion_columna, Casillero* casillero) {
 	matriz[posicion_fila][posicion_columna] = casillero;
 }
@@ -179,14 +187,73 @@ void Mapa::sumar_casillero_por_tipo(string tipo_casillero) {
 }
 
 void Mapa::consultar_casillero() {
-	int fila_ingresada, columna_ingresada;
-	pedir_coordenadas_casillero(fila_ingresada, columna_ingresada);
-	matriz[fila_ingresada - 1][columna_ingresada - 1] -> mostrar();
+	int fila;
+	int columna;
+	pedir_coordenadas(fila, columna);
+
+	if (fila <= filas && columna <= columnas) {
+		system(CLR_SCREEN);
+		cout << ENTER_COLOR << "El casillero de la coordenada (" << fila + 1 << ", " << columna + 1 << ") dice: " << END_COLOR << endl;
+		cout << endl;
+		matriz[fila][columna] -> mostrar();
+	}
+	else {
+		cout << ERROR_COLOR << "Las coordenadas ingresadas estan fuera del mapa." << END_COLOR << endl;
+		cout << endl;
+	}
 }
 
-void Mapa::pedir_coordenadas_casillero(int &fila_ingresada, int &columna_ingresada) {
-	cout << SUCESS_COLOR <<"Por favor, ingrese la fila del casillero que desea consultar: " << END_COLOR << endl;
-	cin >> fila_ingresada;
-	cout << SUCESS_COLOR << "Por favor, ingrese la columna del casillero que desea consultar: " << END_COLOR << endl;
-	cin >> columna_ingresada;
+void Mapa::pedir_coordenadas(int &fila, int &columna) {
+	
+	pedir_fila(fila);
+
+    while (fila <= 0) {
+        system(CLR_SCREEN);
+        cout << ERROR_COLOR << "Debe ingresar un numero positivo." << END_COLOR << endl;
+        cout << endl;
+        pedir_fila(fila);
+    }
+
+    pedir_columna(columna);
+
+    while (columna <= 0) {
+        system(CLR_SCREEN);
+        cout << ERROR_COLOR << "Debe ingresar un numero positivo." << END_COLOR << endl;
+        cout << endl;
+        pedir_columna(columna);
+    }
+
+	fila = fila -1;
+	columna = columna - 1;
+    cout << endl;
+}
+
+void Mapa::pedir_fila(int &fila) {
+    cout << ENTER_COLOR << "Ingrese la fila del casillero que desea consultar: " << END_COLOR << endl;
+    cin >> fila;
+    cin.clear();
+    cin.ignore(100, '\n');
+}
+
+void Mapa::pedir_columna(int &columna) {
+    cout << ENTER_COLOR << "Ingrese la columna del casillero que desea consultar: " << END_COLOR << endl;
+    cin >> columna;
+    cin.clear();
+    cin.ignore(100, '\n');
+}
+
+void Mapa::construir_edificio(int fila, int columna, Edificio edificio_a_construir) {
+
+	if (matriz[fila][columna] -> obtener_tipo_casillero() == CONSTRUIBLE && !matriz[fila][columna] -> obtener_cantidad_contenida()) {
+
+		borrar_casillero(matriz[fila][columna]);
+
+		Casillero_construible* construible = new Casillero_construible(fila, columna, CONSTRUIBLE);
+		construible -> asignar_edificio(edificio_a_construir);
+
+		matriz[fila][columna] = construible;
+		matriz[fila][columna] -> ocupar_casillero();
+
+		construibles_disponibles--;
+	}
 }

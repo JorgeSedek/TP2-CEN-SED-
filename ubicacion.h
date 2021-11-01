@@ -17,6 +17,7 @@ class Ubicacion {
 
 	public:
 	Ubicacion();
+	Ubicacion(string nombre, int fila, int columna);
 	Ubicacion(string nombre, string fila, string columna);
 	string obtener_nombre();
 	int obtener_fila();

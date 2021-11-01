@@ -25,7 +25,6 @@ void Casillero::ocupar_casillero() {
 	esta_vacio = false;
 }
 
-
 string Casillero::obtener_tipo_casillero() {
 	return tipo_casillero;
 }
@@ -48,6 +47,10 @@ Casillero_construible::Casillero_construible(int fila, int columna, string tipo_
 	this -> tipo_casillero = tipo_casillero;
 	this -> esta_vacio = true;
 	this -> edificio = Edificio();
+}
+
+void Casillero_construible::asignar_edificio(Edificio edificio) {
+	this -> edificio = edificio;
 }
 
 Casillero_inaccesible::Casillero_inaccesible(int fila, int columna, string tipo_casillero) : Casillero() {

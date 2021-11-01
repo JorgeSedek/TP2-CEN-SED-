@@ -25,6 +25,8 @@ int main() {
     if (!cargar_edificios(vector_edificios, cantidad_edificios)) return 0;
     if (!cargar_ubicaciones(vector_ubicaciones, edificios_construidos)) return 0;
     if (!cargar_mapa(mapa)) return 0;
+
+    cargar_ubicaciones_mapa(mapa, vector_ubicaciones, edificios_construidos, vector_edificios, cantidad_edificios);
     
     mostrar_bienvenida();
 

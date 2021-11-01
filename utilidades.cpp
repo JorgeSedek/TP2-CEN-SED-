@@ -9,7 +9,7 @@ int encontrar_edificio(Edificio* vector_edificios, int cantidad_edificios) {
     cout << ENTER_COLOR << "Ingrese el nombre del edificio deseado: " << END_COLOR << endl;
     cin >> nombre_ingresado;
 
-    for (int i = 0; i != cantidad_edificios && posicion_edificio == ERROR_NOMBRE_INCORRECTO; i++) {
+    for (int i = 0; i < cantidad_edificios && posicion_edificio == ERROR_NOMBRE_INCORRECTO; i++) {
         if (vector_edificios[i].obtener_nombre() == nombre_ingresado) {
             posicion_edificio = i;
         }
@@ -23,12 +23,13 @@ int encontrar_edificio(Edificio* vector_edificios, int cantidad_edificios) {
     return posicion_edificio;
 }
 
-void verificar_edificio(Mapa* &mapa, Material* &vector_materiales, Edificio* &vector_edificios, int cantidad_edificios, Ubicacion* vector_ubicaciones, int edificios_construidos, int posiciones_materiales[]) {
+void verificar_edificio(Mapa* &mapa, Material* &vector_materiales, Edificio* &vector_edificios, int cantidad_edificios, Ubicacion* &vector_ubicaciones, int &edificios_construidos, int posiciones_materiales[]) {
 
     int verificacion = 0;
     int posicion_edificio = encontrar_edificio(vector_edificios, cantidad_edificios);
 
     if (posicion_edificio != ERROR_NOMBRE_INCORRECTO) {
+
         cout << endl;
         for (int i = 0; i != MATERIALES_UTILIZADOS_EDIFICIOS; i++) {
             if (vector_edificios[posicion_edificio].obtener_costo(i) > vector_materiales[posiciones_materiales[i]].obtener_cantidad()) {
@@ -37,14 +38,28 @@ void verificar_edificio(Mapa* &mapa, Material* &vector_materiales, Edificio* &ve
             }
         }
 
+        Edificio edificio_a_construir = vector_edificios[posicion_edificio];
+        string nombre_edificio = edificio_a_construir.obtener_nombre();
+
+        if (vector_edificios[posicion_edificio].obtener_limite_construccion() == obtener_cantidad_edificio(vector_ubicaciones, edificios_construidos, nombre_edificio)) {
+            cout << ERROR_COLOR << "-No se puede construir mas edificios de ese tipo." << END_COLOR << endl;
+            verificacion = ERROR_EXCEDENTE;
+        }
+
         int coordenadas[CANTIDAD_COORDENADAS];
 
         if (verificacion != ERROR_EXCEDENTE) {
             verificacion = verificar_coordenada_valida(mapa, vector_ubicaciones, edificios_construidos, coordenadas);
         }
 
-        if (verificacion) {
+        int fila = coordenadas[FILA];
+        int columna = coordenadas[COLUMNA] ; 
+        Ubicacion ubicacion_edificio(edificio_a_construir.obtener_nombre(), fila, columna);
+
+        if (verificacion && verificacion != ERROR_EXCEDENTE) {
             confirmar_construccion(vector_materiales, vector_edificios, posicion_edificio, posiciones_materiales);
+            mapa -> construir_edificio(fila, columna, edificio_a_construir);
+            agregar_ubicacion(vector_ubicaciones, ubicacion_edificio, edificios_construidos);
         }
     }
 }
@@ -56,7 +71,10 @@ bool verificar_coordenada_valida(Mapa* mapa, Ubicacion* vector_ubicaciones, int 
     int columnas = mapa -> obtener_columnas();
     bool verificacion = true;
 
-    if (coordenadas[FILA] > filas || coordenadas[COLUMNA] > columnas) {
+    int fila = coordenadas[FILA];
+    int columna = coordenadas[COLUMNA];
+
+    if (fila > filas || columna > columnas) {
         cout << ERROR_COLOR << "Las coordenadas ingresadas estan fuera del mapa." << END_COLOR << endl;
         verificacion = false;
     }
@@ -64,6 +82,11 @@ bool verificar_coordenada_valida(Mapa* mapa, Ubicacion* vector_ubicaciones, int 
         cout << ERROR_COLOR << "Las coordenadas ingresadas se encuentran ocupadas." << END_COLOR << endl;
         verificacion = false;
     }
+    else if (mapa -> obtener_tipo_casillero(fila, columna) != CONSTRUIBLE) {
+        cout << ERROR_COLOR << "Las coordenadas no pertenecen a un casillero construible." << END_COLOR << endl;
+        verificacion = false;
+    }
+
     return verificacion;
 }
 
@@ -91,8 +114,8 @@ void pedir_coordenadas(int* coordenadas) {
     }
     cout << endl;
     
-    coordenadas[FILA] = fila;
-    coordenadas[COLUMNA] = columna;
+    coordenadas[FILA] = fila - 1;
+    coordenadas[COLUMNA] = columna - 1;
 }
 
 void pedir_fila(int &fila) {
@@ -166,24 +189,6 @@ void mostrar_costo_edificio(Edificio* vector_edificio, int posicion_edificio) {
     cout << "-" << vector_edificio[posicion_edificio].obtener_costo(MADERA) << " unidades de madera." << endl;
     cout << "-" << vector_edificio[posicion_edificio].obtener_costo(METAL) << " unidades de metal." << endl;
     cout << END_COLOR << endl;
-}
-
-string obtener_nombre_material(int posicion) {
-    
-    string nombre_material;
-    
-    switch (posicion) {
-        case PIEDRA:
-        nombre_material = "piedra";
-        break;
-        case MADERA:
-        nombre_material = "madera";
-        break;
-        case METAL:
-        nombre_material = "metal";
-    }
-
-    return nombre_material;
 }
 
 void cargar_posicion_material_edificios(Material* vector_materiales, int tipos_de_materiales, int posiciones_materiales[]) {
@@ -264,4 +269,36 @@ void mostrar_edificios_construidos(Edificio* vector_edificios, int cantidad_edif
         }
     }
     cout << END_COLOR << endl;
+}
+
+void cargar_ubicaciones_mapa(Mapa* &mapa, Ubicacion* vector_ubicaciones, int edificios_construidos, Edificio* vector_edificios, int cantidad_edificios) {
+
+    for (int i = 0; i < edificios_construidos; i++) {
+
+		string nombre_edificio = vector_ubicaciones[i].obtener_nombre();
+        int posicion_edificio = -1;
+
+        for (int j = 0; j < cantidad_edificios && posicion_edificio == -1; j++) {
+            if (vector_edificios[j].obtener_nombre() == nombre_edificio) {
+                posicion_edificio = j;
+            }
+        }
+    
+        Edificio edificio = vector_edificios[posicion_edificio];
+
+		int fila = vector_ubicaciones[i].obtener_fila() -1;
+		int columna = vector_ubicaciones[i].obtener_columna() - 1;
+
+        Casillero* casillero_vacio = mapa -> obtener_casillero(fila, columna);
+        mapa -> borrar_casillero(casillero_vacio);
+
+		Casillero_construible* construible = new Casillero_construible(fila, columna, CONSTRUIBLE);
+		construible -> asignar_edificio(edificio);
+        construible -> ocupar_casillero();
+
+	    mapa -> cargar_casillero(fila, columna, construible);
+
+		mapa -> sumar_casillero_por_tipo(CONSTRUIBLE);
+
+	}
 }

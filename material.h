@@ -1,9 +1,9 @@
 #ifndef MATERIAL_H_INCLUDED
 #define MATERIAL_H_INCLUDED
 
+#include <string>
 #include "system_clear.h"
 #include "colores.h"
-#include <string>
 
 using namespace std;
 

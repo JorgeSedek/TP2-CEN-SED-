@@ -28,7 +28,7 @@ void Material::restar_costo(int costo) {
 }
 
 void Material::mostrar_informacion() {
-	cout << ENTER_COLOR << "-Soy un/una " << obtener_nombre() << " y me encuentro en el casillero consultado." << END_COLOR << endl;
+	cout << SUCESS_COLOR << "-Soy un/a " << obtener_nombre() << " y me encuentro en el casillero consultado." << END_COLOR << endl;
 }
 
 int Material::llover_material_aleatorio() {

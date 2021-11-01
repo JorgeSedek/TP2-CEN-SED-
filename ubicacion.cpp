@@ -15,6 +15,12 @@ Ubicacion::Ubicacion() {
 	this -> columna = 0;
 }
 
+Ubicacion::Ubicacion(string nombre, int fila, int columna) {
+	this -> nombre = nombre;
+	this -> fila = fila;
+	this -> columna = columna;
+}
+
 Ubicacion::Ubicacion(string nombre, string str_fila, string str_columna){
 	this -> nombre = nombre;
 	this -> fila = limpiar_string(str_fila, POSICION_INICIAL_FILA, TOPE_CADENA_FILA);
