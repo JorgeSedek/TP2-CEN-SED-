@@ -71,7 +71,11 @@ void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_material
             break;
         case 10:
             system(CLR_SCREEN);
+            guardar_materiales(vector_materiales, tipos_de_materiales);
+            borrar_vector_edificios(vector_edificios);
+            guardar_ubicaciones(vector_ubicaciones, edificios_construidos);
             mapa -> borrar();
+            cout << SUCESS_COLOR << "-Se han guardado exitosamente los cambios efectuados!" << END_COLOR << endl;
     }
 }
 

@@ -63,7 +63,7 @@ void verificar_construccion(Mapa* &mapa, Material* &vector_materiales, Edificio*
         if (verificacion && verificacion != ERROR_EXCEDENTE) {
             if (confirmar_construccion(vector_materiales, vector_edificios, posicion_edificio, posiciones_materiales)) {
 
-                Ubicacion ubicacion_edificio(edificio_a_construir.obtener_nombre(), fila, columna);
+                Ubicacion ubicacion_edificio(edificio_a_construir.obtener_nombre(), fila + 1, columna + 1);
                 mapa -> construir_edificio(fila, columna, edificio_a_construir);
                 agregar_ubicacion(vector_ubicaciones, ubicacion_edificio, edificios_construidos);
             }

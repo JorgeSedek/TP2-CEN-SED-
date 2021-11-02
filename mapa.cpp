@@ -9,6 +9,7 @@ Mapa::Mapa(int filas, int columnas) {
 	this -> transitables_disponibles = 0;
 	this -> construibles_disponibles = 0;
 	this -> inaccesibles_disponibles = 0;
+	
 	this -> matriz = new Casillero** [filas];
 
     for (int i = 0; i < filas; i++) {

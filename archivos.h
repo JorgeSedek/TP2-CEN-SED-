@@ -33,6 +33,8 @@ void agregar_edificio(Edificio* &vector_edificios, Edificio edificio, int &canti
 bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construidos);
 void agregar_ubicacion(Ubicacion* &vector_ubicaciones, Ubicacion ubicacion, int &edificios_construidos);
 bool cargar_mapa(Mapa* &mapa);
-string obtener_nombre_material(int posicion);
+void guardar_materiales(Material* &vector_materiales, int tipos_de_materiales);
+void borrar_vector_edificios(Edificio* &vector_edificios);
+void guardar_ubicaciones(Ubicacion* vector_ubicaciones, int edificios_construidos);
 
 #endif // ARCHIVOS_H

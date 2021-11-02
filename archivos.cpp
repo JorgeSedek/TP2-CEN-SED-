@@ -66,16 +66,13 @@ bool cargar_edificios(Edificio* &vector_edificios, int &cantidad_edificios) {
         while (archivo >> nombre_edificio) {
             
             archivo >> cantidad_material;
-            nombre_material = obtener_nombre_material(PIEDRA);
-            Material piedra(nombre_material, cantidad_material);
+            Material piedra(S, cantidad_material);
 
             archivo >> cantidad_material;
-            nombre_material = obtener_nombre_material(MADERA);
-            Material madera(nombre_material, cantidad_material);
+            Material madera(W, cantidad_material);
 
             archivo >> cantidad_material;
-            nombre_material = obtener_nombre_material(METAL);
-            Material metal(nombre_material, cantidad_material);
+            Material metal(I, cantidad_material);
         
             archivo >> limite_construccion;
 
@@ -169,8 +166,7 @@ bool cargar_mapa(Mapa* &mapa) {
         archivo >> filas;
         archivo >> columnas;
 
-        Mapa* nuevo_mapa = new Mapa(filas, columnas);
-        mapa = nuevo_mapa;
+        mapa = new Mapa(filas, columnas);
         
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
@@ -187,20 +183,36 @@ bool cargar_mapa(Mapa* &mapa) {
     return 1;
 }
 
-string obtener_nombre_material(int posicion) {
-    
-    string nombre_material;
-    
-    switch (posicion) {
-        case PIEDRA:
-        nombre_material = "piedra";
-        break;
-        case MADERA:
-        nombre_material = "madera";
-        break;
-        case METAL:
-        nombre_material = "metal";
+void guardar_materiales(Material* &vector_materiales, int tipos_de_materiales) {
+
+    ofstream archivo_salida(PATH_MATERIALES);
+
+    for (int i = 0; i < tipos_de_materiales; i++) {
+        archivo_salida << vector_materiales[i].obtener_nombre() << " " << vector_materiales[i].obtener_cantidad() << endl;
     }
 
-    return nombre_material;
+    archivo_salida.close();
+    delete[] vector_materiales;
+    vector_materiales = nullptr;
+}
+
+void borrar_vector_edificios(Edificio* &vector_edificios) {
+    delete[] vector_edificios;
+    vector_edificios = nullptr;
+}
+
+void guardar_ubicaciones(Ubicacion* vector_ubicaciones, int edificios_construidos) {
+
+    ofstream archivo_salida(PATH_UBICACIONES);
+
+    for (int i = 0; i < edificios_construidos; i++) {
+        if (vector_ubicaciones[i].obtener_nombre() != "") {
+            archivo_salida << vector_ubicaciones[i].obtener_nombre() << " (" << vector_ubicaciones[i].obtener_fila();
+            archivo_salida << ", " <<vector_ubicaciones[i].obtener_columna()<< ")" << endl;
+        }
+    }
+
+    archivo_salida.close();
+    delete[] vector_ubicaciones;
+    vector_ubicaciones = nullptr;
 }

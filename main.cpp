@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
 
-    srand(time(NULL));
+    srand((unsigned)time(NULL));
     
     int tipos_de_materiales = 0;
     Material* vector_materiales = nullptr;

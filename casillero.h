@@ -28,7 +28,8 @@ class Casillero {
 	virtual void mostrar() = 0;
 	virtual void imprimir_casillero() = 0;
 	virtual int obtener_cantidad_contenida() = 0;
-	virtual string obtener_nombre_contenido() = 0; 
+	virtual string obtener_nombre_contenido() = 0;
+	virtual ~Casillero() {}
 };
 
 class Casillero_transitable: public Casillero {
@@ -76,6 +77,8 @@ class Casillero_transitable: public Casillero {
 	string obtener_nombre_contenido() {
 		return material.obtener_nombre();
 	}
+
+	~Casillero_transitable() {}
 
 };
 
@@ -145,6 +148,8 @@ class Casillero_construible: public Casillero {
 		return edificio.obtener_nombre();
 	}
 
+	~Casillero_construible() {}
+
 };
 
 class Casillero_inaccesible: public Casillero {
@@ -167,6 +172,8 @@ class Casillero_inaccesible: public Casillero {
 	string obtener_nombre_contenido() {
 		return "";
 	}
+
+	~Casillero_inaccesible() {}
 
 };
 
