@@ -35,7 +35,7 @@ void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_material
     switch (opcion_elegida) {
         case 1:
             system(CLR_SCREEN);
-            verificar_edificio(mapa, vector_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, posiciones_materiales);
+            verificar_construccion(mapa, vector_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, posiciones_materiales);
             cout << endl;
             break;
         case 2:
@@ -48,6 +48,7 @@ void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_material
             break;
         case 4:
             system(CLR_SCREEN);
+            verificar_demolicion(mapa, vector_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, posiciones_materiales);
             break;
         case 5:
             system(CLR_SCREEN);

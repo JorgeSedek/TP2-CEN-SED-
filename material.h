@@ -42,6 +42,7 @@ class Material {
     string obtener_nombre();
     int obtener_cantidad();
     void mostrar_material();
+    void sumar_costo(int costo);
     void restar_costo(int costo);
     int llover_material_aleatorio();
     void mostrar_informacion();

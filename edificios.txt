@@ -1,4 +1,3 @@
-yacimiento 100 140 90 3
 escuela 150 120 100 1
 fabrica 75 175 150 4
 aserradero 100 150 10 4

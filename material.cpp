@@ -23,6 +23,10 @@ void Material::mostrar_material() {
     cout << '-' << obtener_cantidad() << " unidades de " << obtener_nombre() << '.' << endl;
 }
 
+void Material::sumar_costo(int costo) {
+	cantidad_material += costo;
+}
+
 void Material::restar_costo(int costo) {
     cantidad_material -= costo;
 }

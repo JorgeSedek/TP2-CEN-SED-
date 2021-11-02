@@ -55,3 +55,9 @@ int Ubicacion::limpiar_string(string cadena, int posicion_inicial, char str_tope
 	}
 	return stoi(numero);
 }
+
+void Ubicacion::cambiar_a_ubicacion_vacia() {
+	this -> nombre = "";
+	this -> fila = -1;
+	this -> columna = -1;
+}

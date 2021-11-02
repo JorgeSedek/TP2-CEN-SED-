@@ -24,9 +24,11 @@ class Casillero {
 	string obtener_tipo_casillero();
 	Casillero* crear_subcasillero(int fila, int columna, string tipo_casillero);
 	void ocupar_casillero();
+	void desocupar_casillero();
 	virtual void mostrar() = 0;
 	virtual void imprimir_casillero() = 0;
-	virtual int obtener_cantidad_contenida() = 0; 
+	virtual int obtener_cantidad_contenida() = 0;
+	virtual string obtener_nombre_contenido() = 0; 
 };
 
 class Casillero_transitable: public Casillero {
@@ -70,6 +72,11 @@ class Casillero_transitable: public Casillero {
 	int obtener_cantidad_contenida() {
 		return material.obtener_cantidad();
 	}
+
+	string obtener_nombre_contenido() {
+		return material.obtener_nombre();
+	}
+
 };
 
 class Casillero_construible: public Casillero {
@@ -133,6 +140,11 @@ class Casillero_construible: public Casillero {
 
 		return existe_edificio;
 	}
+
+	string obtener_nombre_contenido() {
+		return edificio.obtener_nombre();
+	}
+
 };
 
 class Casillero_inaccesible: public Casillero {
@@ -151,6 +163,11 @@ class Casillero_inaccesible: public Casillero {
 	int obtener_cantidad_contenida() {
 		return 0;
 	}
+
+	string obtener_nombre_contenido() {
+		return "";
+	}
+
 };
 
 #endif // CASILLERO_H_INCLUDED

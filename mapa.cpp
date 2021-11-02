@@ -119,7 +119,7 @@ void Mapa::generar_lluvia_materiales() {
 void Mapa::imprimir_mensaje_lluvia(int piedra_llovida, int madera_llovida, int metal_llovido, int &total_llovido) {
 
 	if (transitables_disponibles) {
-		cout << ENTER_COLOR << "Se ha generado una lluvia de materiales." << endl;
+		cout << ENTER_COLOR << "Se ha generado una lluvia de materiales: " << endl;
 		cout << SUCESS_COLOR << endl;
 		cout << "-Han llovido " << piedra_llovida << " piedras." << endl;
 		cout << "-Han llovido " << madera_llovida << " maderas." << endl;
@@ -191,14 +191,14 @@ void Mapa::consultar_casillero() {
 	int columna;
 	pedir_coordenadas(fila, columna);
 
-	if (fila <= filas && columna <= columnas) {
+	if (fila <= filas - 1 && columna <= columnas - 1) {
 		system(CLR_SCREEN);
 		cout << ENTER_COLOR << "El casillero de la coordenada (" << fila + 1 << ", " << columna + 1 << ") dice: " << END_COLOR << endl;
 		cout << endl;
 		matriz[fila][columna] -> mostrar();
 	}
 	else {
-		cout << ERROR_COLOR << "Las coordenadas ingresadas estan fuera del mapa." << END_COLOR << endl;
+		cout << ERROR_COLOR << "-Las coordenadas ingresadas estan fuera del mapa." << END_COLOR << endl;
 		cout << endl;
 	}
 }
@@ -209,7 +209,7 @@ void Mapa::pedir_coordenadas(int &fila, int &columna) {
 
     while (fila <= 0) {
         system(CLR_SCREEN);
-        cout << ERROR_COLOR << "Debe ingresar un numero positivo." << END_COLOR << endl;
+        cout << ERROR_COLOR << "-Debe ingresar un numero positivo." << END_COLOR << endl;
         cout << endl;
         pedir_fila(fila);
     }
@@ -218,7 +218,7 @@ void Mapa::pedir_coordenadas(int &fila, int &columna) {
 
     while (columna <= 0) {
         system(CLR_SCREEN);
-        cout << ERROR_COLOR << "Debe ingresar un numero positivo." << END_COLOR << endl;
+        cout << ERROR_COLOR << "-Debe ingresar un numero positivo." << END_COLOR << endl;
         cout << endl;
         pedir_columna(columna);
     }

@@ -23,6 +23,7 @@ class Ubicacion {
 	int obtener_fila();
 	int obtener_columna();
 	int limpiar_string(string cadena, int posicion_inicial, char str_tope);
+	void cambiar_a_ubicacion_vacia();
 };
 
 #endif // UBICACION_H_INCLUDED

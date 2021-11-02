@@ -25,6 +25,10 @@ void Casillero::ocupar_casillero() {
 	esta_vacio = false;
 }
 
+void Casillero::desocupar_casillero() {
+	esta_vacio = true;
+}
+
 string Casillero::obtener_tipo_casillero() {
 	return tipo_casillero;
 }
