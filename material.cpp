@@ -59,7 +59,6 @@ string Material::obtener_tipo_material(int tipo_material){
 			break;
 		case METAL:
 			nombre_material = "metal";
-			break;
 
 	}
 	return nombre_material;

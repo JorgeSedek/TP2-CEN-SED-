@@ -2,13 +2,6 @@
 
 using namespace std;
 
-const char TOPE_CADENA_FILA = ',';
-const char TOPE_CADENA_COLUMNA = ')';
-const int ASCII_NUM_ZERO = 48;
-const int ASCII_NUM_NUEVE = 57;
-const int POSICION_INICIAL_FILA = 1;
-const int POSICION_INICIAL_COLUMNA = 0;
-
 Ubicacion::Ubicacion() {
 	this -> nombre = "";
 	this -> fila = 0;
@@ -48,7 +41,7 @@ int Ubicacion::limpiar_string(string cadena, int posicion_inicial, char str_tope
 
 	while (cadena[posicion_inicial + 1] != str_tope) {
 	    posicion_inicial++;
-	    if (ASCII_NUM_ZERO <= cadena[posicion_inicial] && cadena[posicion_inicial] <= ASCII_NUM_NUEVE) {
+	    if (ASCII_NUM_CERO <= cadena[posicion_inicial] && cadena[posicion_inicial] <= ASCII_NUM_NUEVE) {
 	    		cifra = cadena[posicion_inicial];
 	    		numero = numero + cifra;
 	    }

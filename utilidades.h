@@ -28,5 +28,6 @@ void cargar_ubicaciones_mapa(Mapa* &mapa, Ubicacion* vector_ubicaciones, int edi
 void verificar_demolicion(Mapa* &mapa, Material* &vector_materiales, Edificio* &vector_edificios, int cantidad_edificios, Ubicacion* &vector_ubicaciones, int &edificios_construidos, int posiciones_materiales[]);
 bool confirmar_demolicion(Material* vector_materiales, Edificio* vector_edificios, int cantidad_edificios, string nombre_edificio, int posiciones_materiales[]);
 void demoler_edificio(Material* &vector_materiales, Edificio* &vector_edificios, int cantidad_edificios, string nombre_edificio, int posiciones_materiales[]);
+void recolectar_recursos_producidos(Material* vector_materiales, Edificio* vector_edificios, int cantidad_edificios, Ubicacion* vector_ubicaciones, int edificios_construidos, int posiciones_materiales[]);
 
 #endif // UTILIDADES_H

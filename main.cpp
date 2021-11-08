@@ -49,6 +49,7 @@ int main() {
         procesar_opcion(opcion_elegida, mapa, vector_materiales, tipos_de_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos);
         
     } while (opcion_elegida != 10);
-    
+
+    delete mapa;
     return 0;
 }

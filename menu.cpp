@@ -64,6 +64,8 @@ void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_material
             break;
         case 8:
             system(CLR_SCREEN);
+            recolectar_recursos_producidos(vector_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, posiciones_materiales);
+            cout << endl;
             break;
         case 9:
             system(CLR_SCREEN);

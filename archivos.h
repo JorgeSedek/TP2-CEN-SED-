@@ -10,6 +10,11 @@ const string PATH_MATERIALES = "materiales.txt";
 const string PATH_UBICACIONES = "ubicaciones.txt";
 const string PATH_MAPA = "mapa.txt";
 
+const char PARENTESIS_CHAR = '(';
+const int OPCION_NUMEROS = 1;
+const int OPCION_PARENTESIS = 0;
+const int POSICION_INICIAL = 0;
+
 //pre: -
 //post: Carga el archivo de materiales al 'vector_materiales' y devuelve True.
 //      Imprime un error y devuelve False si el archivo no existe.
@@ -36,5 +41,8 @@ bool cargar_mapa(Mapa* &mapa);
 void guardar_materiales(Material* &vector_materiales, int tipos_de_materiales);
 void borrar_vector_edificios(Edificio* &vector_edificios);
 void guardar_ubicaciones(Ubicacion* vector_ubicaciones, int edificios_construidos);
+string leer_palabra_compuesta(ifstream &archivo, string &nombre_edificio, int opcion);
+bool verificar_tipo_caracter(string palabra, int tipo_caracter);
+bool es_numero(string palabra);
 
 #endif // ARCHIVOS_H

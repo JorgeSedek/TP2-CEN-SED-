@@ -3,3 +3,4 @@ fabrica 75 175 150 4
 aserradero 100 150 10 4
 mina 120 70 50 3
 obelisco 100 170 150 5
+planta electrica 120 150 95 2

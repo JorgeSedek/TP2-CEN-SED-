@@ -5,6 +5,13 @@
 
 using namespace std;
 
+const char TOPE_CADENA_FILA = ',';
+const char TOPE_CADENA_COLUMNA = ')';
+const int ASCII_NUM_CERO = 48;
+const int ASCII_NUM_NUEVE = 57;
+const int POSICION_INICIAL_FILA = 1;
+const int POSICION_INICIAL_COLUMNA = 0;
+
 const int CANTIDAD_COORDENADAS = 2;
 const int FILA = 0;
 const int COLUMNA = 1;

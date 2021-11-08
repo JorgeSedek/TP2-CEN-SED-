@@ -64,8 +64,8 @@ bool cargar_edificios(Edificio* &vector_edificios, int &cantidad_edificios) {
     }
     else {
         while (archivo >> nombre_edificio) {
-            
-            archivo >> cantidad_material;
+
+            cantidad_material = stoi(leer_palabra_compuesta(archivo, nombre_edificio, OPCION_NUMEROS));
             Material piedra(S, cantidad_material);
 
             archivo >> cantidad_material;
@@ -118,7 +118,9 @@ bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construid
     else {
 
         while (archivo >> nombre_edificio) {
-            archivo >> fila;
+            
+            fila = leer_palabra_compuesta(archivo, nombre_edificio, OPCION_PARENTESIS);
+            
             archivo >> columna;
 
             Ubicacion ubicacion(nombre_edificio, fila, columna);
@@ -215,4 +217,35 @@ void guardar_ubicaciones(Ubicacion* vector_ubicaciones, int edificios_construido
     archivo_salida.close();
     delete[] vector_ubicaciones;
     vector_ubicaciones = nullptr;
+}
+
+string leer_palabra_compuesta(ifstream &archivo, string &nombre_edificio, int opcion) {
+	
+    string palabra_edificio = "";
+	archivo >> palabra_edificio;
+
+	while (!verificar_tipo_caracter(palabra_edificio, opcion)) {
+		nombre_edificio = nombre_edificio + " " + palabra_edificio;
+		archivo >> palabra_edificio;
+	}
+	return palabra_edificio;
+}
+
+bool verificar_tipo_caracter(string palabra, int tipo_caracter) {
+	
+    bool es_caracter_evaluado = false;
+
+	if (tipo_caracter == OPCION_NUMEROS) {
+		es_caracter_evaluado = es_numero(palabra);
+	}
+	else {
+		if (palabra[POSICION_INICIAL] == PARENTESIS_CHAR) {
+			es_caracter_evaluado = true;
+		}
+	}
+	return es_caracter_evaluado;
+}
+
+bool es_numero(string palabra) {
+	return (ASCII_NUM_CERO <= palabra[POSICION_INICIAL] && palabra[POSICION_INICIAL] <= ASCII_NUM_NUEVE);
 }

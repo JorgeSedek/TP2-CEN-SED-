@@ -7,8 +7,9 @@ int encontrar_edificio(Edificio* vector_edificios, int cantidad_edificios) {
     int posicion_edificio = ERROR_NOMBRE_INCORRECTO;
 
     cout << ENTER_COLOR << "Ingrese el nombre del edificio deseado: " << END_COLOR << endl;
-    cin >> nombre_ingresado;
-
+    
+    getline(cin, nombre_ingresado);
+    
     for (int i = 0; i < cantidad_edificios && posicion_edificio == ERROR_NOMBRE_INCORRECTO; i++) {
         if (vector_edificios[i].obtener_nombre() == nombre_ingresado) {
             posicion_edificio = i;
@@ -167,17 +168,18 @@ bool confirmar_construccion(Material* vector_materiales, Edificio* vector_edific
 
     bool confirmacion = true;
     string respuesta;
+    string nombre_edificio = vector_edificios[posicion_edificio].obtener_nombre();
 
     system(CLR_SCREEN);
-    cout << ENTER_COLOR << "Esta seguro que desea construir un/a '" << vector_edificios[posicion_edificio].obtener_nombre() << "'?" << END_COLOR;
-    cout << SUCESS_COLOR << " Ingrese 'si' para confirmar." << END_COLOR << endl;
+    cout << ENTER_COLOR << "Esta seguro que desea construir un/a '" << nombre_edificio << "'?" << END_COLOR << endl;;
+    cout << SUCESS_COLOR << "Ingrese 'si' para confirmar." << END_COLOR << endl;
     mostrar_costo_edificio(vector_edificios, posicion_edificio);
     cin >> respuesta;
     cout << endl;
     
     if (respuesta == "si") {
         construir_edificio(vector_materiales, vector_edificios, posicion_edificio, posiciones_materiales);
-        cout << SUCESS_COLOR << "-Se ha construido exitosamente un/a '" << vector_edificios[posicion_edificio].obtener_nombre() << "'." << END_COLOR << endl;
+        cout << SUCESS_COLOR << "-Se ha construido exitosamente un/a '" << nombre_edificio << "'." << END_COLOR << endl;
     }
     else {
         cout << ERROR_COLOR << "-No se ha construido el edificio." << END_COLOR << endl;
@@ -356,8 +358,8 @@ bool confirmar_demolicion(Material* vector_materiales, Edificio* vector_edificio
     string respuesta;
 
     system(CLR_SCREEN);
-    cout << ENTER_COLOR << "Esta seguro que desea demoler un/a '" << nombre_edificio << "'?" << END_COLOR;
-    cout << SUCESS_COLOR << " Ingrese 'si' para confirmar." << END_COLOR << endl;
+    cout << ENTER_COLOR << "Esta seguro que desea demoler un/a '" << nombre_edificio << "'?" << END_COLOR << endl;;
+    cout << SUCESS_COLOR << "Ingrese 'si' para confirmar." << END_COLOR << endl;
     cin >> respuesta;
     cout << endl;
     
@@ -389,4 +391,50 @@ void demoler_edificio(Material* &vector_materiales, Edificio* &vector_edificios,
     for (int i = 0; i != MATERIALES_UTILIZADOS_EDIFICIOS; i++) {
         vector_materiales[posiciones_materiales[i]].sumar_costo(edificio.obtener_costo(i) / CANTIDAD_DEVUELTA);
     }
+}
+
+void recolectar_recursos_producidos(Material* vector_materiales, Edificio* vector_edificios, int cantidad_edificios, Ubicacion* vector_ubicaciones, int edificios_construidos, int posiciones_materiales[]) {
+
+    bool verificacion = false;
+
+    system(CLR_SCREEN);
+    cout << ENTER_COLOR << "Se han recolectado los siguientes recursos: " << END_COLOR << endl;
+    cout << endl;
+
+    for (int i = 0; i < cantidad_edificios; i++) {
+
+        string nombre_edificio = vector_edificios[i].obtener_nombre();
+        int cantidad_edificio = obtener_cantidad_edificio(vector_ubicaciones, edificios_construidos, nombre_edificio);
+
+        if (cantidad_edificio) {
+
+            Material materiales_producidos = vector_edificios[i].obtener_materiales_producidos();
+            string nombre_material = materiales_producidos.obtener_nombre();
+            int cantidad_material = materiales_producidos.obtener_cantidad();
+
+            if (nombre_material == S) {
+                vector_materiales[posiciones_materiales[PIEDRA]].sumar_costo(cantidad_material * cantidad_edificio);
+                cout << SUCESS_COLOR << "-Se han recolectado " << cantidad_material * cantidad_edificio << " unidades de piedra." << END_COLOR << endl;
+                verificacion = true;
+            }
+
+            if (nombre_material == W) {
+                vector_materiales[posiciones_materiales[MADERA]].sumar_costo(cantidad_material * cantidad_edificio);
+                cout << SUCESS_COLOR << "-Se han recolectado " << cantidad_material * cantidad_edificio << " unidades de madera." << END_COLOR << endl;
+                verificacion = true;
+            }
+
+            if (nombre_material == I) {
+                vector_materiales[posiciones_materiales[METAL]].sumar_costo(cantidad_material * cantidad_edificio);
+                cout << SUCESS_COLOR << "-Se han recolectado " << cantidad_material * cantidad_edificio << " unidades de metal." << END_COLOR << endl;
+                verificacion = true;
+            }
+        }
+    }
+
+    if (!verificacion) {
+        system(CLR_SCREEN);
+        cout << ERROR_COLOR << "-No se han recolectado recursos por falta de edificios de produccion." << END_COLOR << endl;
+    }
+
 }
