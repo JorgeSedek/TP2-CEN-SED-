@@ -88,6 +88,7 @@ void Mapa::generar_lluvia_materiales() {
 
 	int total_llovido = piedra_llovida + madera_llovida + metal_llovido;
 	int material_llovido;
+	bool ha_llovido = false;
 
 	cout << ENTER_COLOR << "Se va a generar una lluvia de recursos: " << END_COLOR << endl;
 	cout << endl;
@@ -113,11 +114,17 @@ void Mapa::generar_lluvia_materiales() {
 
 					cout << SUCESS_COLOR << "-Ha llovido un/a " << nombre_material << " en las coordenadas (";
 					cout << i + 1 << ", " << j + 1 <<")." << END_COLOR << endl;
+					
+					ha_llovido = true;
 					transitables_disponibles--;
 					total_llovido--;
 				}
 			}	
 		}
+	}
+
+	if (transitables_disponibles && !ha_llovido) {
+		cout << ERROR_COLOR << "-El reporte meteorologico estaba equivocado. No ha llovido ningun recurso." << END_COLOR << endl;
 	}
 
 	if (!transitables_disponibles) {
