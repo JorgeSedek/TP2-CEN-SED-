@@ -8,7 +8,7 @@ Mapa::Mapa(int filas, int columnas) {
 	this -> columnas = columnas;
 	this -> transitables_disponibles = 0;
 	this -> construibles_disponibles = 0;
-	this -> inaccesibles_disponibles = 0;
+	this -> inaccesibles = 0;
 	
 	this -> matriz = new Casillero** [filas];
 
@@ -48,8 +48,8 @@ string Mapa::obtener_tipo_casillero(int fila, int columna) {
 	return matriz[fila][columna] -> obtener_tipo_casillero();
 }
 
-void Mapa::cargar_casillero(int posicion_fila, int posicion_columna, Casillero* casillero) {
-	matriz[posicion_fila][posicion_columna] = casillero;
+void Mapa::cargar_casillero(int fila, int columna, Casillero* casillero) {
+	matriz[fila][columna] = casillero;
 }
 
 void Mapa::imprimir_mapa() {
@@ -103,7 +103,7 @@ void Mapa::generar_lluvia_materiales() {
 
 					borrar_casillero(matriz[i][j]);
 
-					Casillero_transitable* transitable = new Casillero_transitable(i, j, TRANSITABLE);
+					Casillero_transitable* transitable = new Casillero_transitable(i, j);
 					transitable -> asignar_material(nuevo_material);
 
 					matriz[i][j] = transitable;
@@ -183,13 +183,15 @@ void Mapa::sumar_casillero_por_tipo(string tipo_casillero) {
 	}
 	
 	if (tipo_casillero == INACCESIBLE) {
-		inaccesibles_disponibles++;
+		inaccesibles++;
 	}
 }
 
 void Mapa::consultar_casillero() {
+	
 	int fila;
 	int columna;
+	
 	pedir_coordenadas(fila, columna);
 
 	if (fila <= filas - 1 && columna <= columnas - 1) {
@@ -249,7 +251,7 @@ void Mapa::construir_edificio(int fila, int columna, Edificio edificio_a_constru
 
 		borrar_casillero(matriz[fila][columna]);
 
-		Casillero_construible* construible = new Casillero_construible(fila, columna, CONSTRUIBLE);
+		Casillero_construible* construible = new Casillero_construible(fila, columna);
 		construible -> asignar_edificio(edificio_a_construir);
 
 		matriz[fila][columna] = construible;
@@ -257,4 +259,8 @@ void Mapa::construir_edificio(int fila, int columna, Edificio edificio_a_constru
 
 		construibles_disponibles--;
 	}
+}
+
+void Mapa::sumar_construibles_disponibles() {
+	construibles_disponibles++;
 }

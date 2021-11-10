@@ -1,132 +1,123 @@
-/*
- * vector.h
- *
- *  Created on: 23 oct. 2021
- *      Author: jorge
- */
-
 #ifndef _VECTOR_TEMPLATE_
 #define _VECTOR_TEMPLATE_
 
 #include <iostream>
 
-//const int NULO = 0;
-
-template < typename Dato>
-
-
+template <typename Dato>
 
 class Vector {
-    // Atributos
-private:
-    int largo;
+    
+    private:
+
     Dato* datos;
+    int largo;
 
-    // Metodos
-public:
+    public:
 
-    //Constructor con un parametro (largo inicial)
-    //PRE: l > 0
-    //POS: construye un Vector de objetos de largo l e inicializa en NULO
-    Vector(int l);
+    // Constructor sin parámetros.
+    //pre: -
+    //post: Instancia un Vector "vacío" con todos sus atributos nulos.
+    Vector();
 
-    //Destructor
-    //PRE: -
-    //POS: libera la memoria utilizada
+    // Destructor.
+    //pre: -
+    //post: Libera toda la memoria dinámica utilizada por el Vector.
     ~Vector();
 
+    //pre: La 'posicion' se encuentra en el intervalo que va desde 0 hasta (largo - 1).
+    //     No se puede usar en un Vector "vacío".
+    //post: Devuelve el dato en la posición ingresada.
+    Dato obtener_dato(int posicion);
 
-    //consultar
-    //PRE: 0 <= posicion < largo
-    //POS: devuelve el valor que esta en la posicion posicion
-    Dato consultar(int posicion);
-
-    //cambiar
-    //PRE: 0 <= posicion < largo
-    //POS: cambia el valor que esta en la posicion posicion por v
-    void cambiar(int posicion, Dato valor);
-
-    //PRE: cantidad > 0
-    //POS: extiende el vector en cantidad de lugares
-    void agrandar(int cantidad);
-
-    //pre:
-	//post: devuelve el largo del vector
+    //pre: -
+    //post: Devuelve el largo del Vector.
     int obtener_largo();
 
-private:
+    //pre: La 'posicion' se encuentra en el intervalo que va desde 0 hasta (largo - 1).
+    //     No se puede usar en un Vector "vacío".
+    //post: Inserta el 'dato' en la posición ingresada.
+    void insertar_posicion(int posicion, Dato dato);
 
-    //PRE:
-    //POS: pone en nulos los valores desde, desde, hasta, hasta - 1
-    void inicializar(int desde, int hasta);
+    //pre: -
+    //post: Inserta el 'dato' al final del Vector. Reserva memoria para el 'dato' y actualiza el valor de su largo.
+    void insertar_ultimo(Dato dato);
 
-    void copiar(Dato* pd, int desde, int hasta);
+    //pre: La 'posicion' se encuentra en el intervalo que va desde 0 hasta (largo - 1).
+    //     No se puede usar en un Vector "vacío".
+    //post: Borra el 'dato' ubicado en la posición ingresada.
+    //      Modifica la memoria utilizada y actualiza el valor de su largo.
+    void borrar_posicion(int posicion);
 };
 
-template < typename Dato>
+template <typename Dato>
 
-Vector<Dato>::Vector(int l) {
-	largo = l;
-	datos = new Dato[largo];
-    inicializar(0, largo);
+Vector<Dato>::Vector() {
+    this -> largo = 0;
+    this -> datos = nullptr;
 }
 
-template < typename Dato>
+template <typename Dato>
 
-void Vector<Dato>::inicializar(int desde, int hasta) {
-    for (int i = desde; i < hasta; i++)
-        datos[i] = Dato();
+Vector<Dato>::~Vector() {
+    delete[] datos;
 }
 
-template < typename Dato>
+template <typename Dato>
 
-Dato Vector<Dato>::consultar(int posicion) {
+Dato Vector<Dato>::obtener_dato(int posicion) {
     return datos[posicion];
 }
 
-template < typename Dato>
+template <typename Dato>
 
-int Vector<Dato>::obtener_largo(){
+int Vector<Dato>::obtener_largo() {
 	return largo;
-
 }
 
-template < typename Dato>
+template <typename Dato>
 
-void Vector<Dato>::cambiar(int posicion, Dato valor) {
-    datos[posicion] = valor;
+void Vector<Dato>::insertar_posicion(int posicion, Dato dato) {
+    datos[posicion] = dato;
 }
 
+template <typename Dato>
 
-template < typename Dato>
+void Vector<Dato>::insertar_ultimo(Dato dato) {
+    
+    Dato* nuevos_datos = new Dato [largo + 1];
 
-Vector<Dato>::~Vector() {
+    for (int i = 0; i < largo; i++) {
+        nuevos_datos[i] = datos[i];
+    }
 
+    nuevos_datos[largo] = dato;
 
-    if (largo > 0)
-        delete [] datos;
+    if (largo != 0) {
+        delete[] datos;
+    }
+    
+    datos = nuevos_datos;
+    largo++;
 }
 
-template < typename Dato>
+template <typename Dato>
 
-void Vector<Dato>::agrandar(int cantidad) {
-    int nueva_longitud = largo + cantidad;
-    Dato* aux = new Dato[nueva_longitud];
-    copiar(aux, 0, largo);
-    delete [] datos;
-    datos = aux;
-    inicializar(largo, nueva_longitud);
-    largo = nueva_longitud;
+void Vector<Dato>::borrar_posicion(int posicion) {
+
+    Dato* nuevos_datos = new Dato [largo - 1];
+
+    for (int i = 0; i < posicion; i++) {
+        nuevos_datos[i] = datos[i];
+    }
+
+    for (int i = posicion; i < largo - 1; i++) {
+        nuevos_datos[i] = datos[i + 1];
+    }
+
+    delete[] datos;
+    
+    datos = nuevos_datos;
+    largo--;
 }
 
-template < typename Dato>
-
-void Vector<Dato>::copiar(Dato* pd, int desde, int hasta) {
-    for (int i = desde; i < hasta; i++)
-        pd[i] = datos[i];
-}
-
-
-
-
-#endif /* _VECTOR_ TEMPLATE_ */
+#endif // _VECTOR_TEMPLATE_

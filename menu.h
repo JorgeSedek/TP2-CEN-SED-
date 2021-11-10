@@ -6,10 +6,20 @@
 const int OPCION_MINIMA = 1;
 const int OPCION_MAXIMA = 10;
 
+//pre: -
+//post: Imprime un mensaje de bienvenida.
 void mostrar_bienvenida();
+
+//pre: -
+//post: Imprime un menú de opciones.
 void mostrar_menu();
-void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_materiales, int &tipos_de_materiales, Edificio* &vector_edificios, int &cantidad_edificios, Ubicacion* &vector_ubicaciones, int &edificios_construidos);
+
+//pre: -
+//post: Procesa la opción elegida y realiza la operación requerida.
+void procesar_opcion(int opcion_elegida, Mapa* &mapa, Vector<Material> &vector_materiales, Vector<Edificio> &vector_edificios, Vector<Ubicacion> &vector_ubicaciones);
+
+//pre: -
+//post: Devuelve True o False dependiendo si la opción elegida es válida o no.
 bool es_opcion_valida(int opcion_elegida);
-void mostrar_costo_edificio(Edificio* vector_edificio, int posicion_edificio);
 
 #endif // MENU_H

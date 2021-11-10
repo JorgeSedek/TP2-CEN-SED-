@@ -39,6 +39,10 @@ Material Edificio::obtener_materiales_producidos() {
     return materiales_producidos;
 }
 
+void Edificio::mostrar_informacion() {
+	cout << SUCESS_COLOR << "-Soy un/a " << obtener_nombre() << " y me encuentro en el casillero consultado." << END_COLOR << endl;
+}
+
 void Edificio::asignar_materiales_producidos(string nombre_edificio) {
 
     materiales_producidos = Material();
@@ -54,8 +58,4 @@ void Edificio::asignar_materiales_producidos(string nombre_edificio) {
     if (nombre_edificio == F) {
         materiales_producidos = Material(I, PRODUCCION_FABRICA);
     }
-}
-
-void Edificio::mostrar_informacion() {
-	cout << SUCESS_COLOR << "-Soy un/a " << obtener_nombre() << " y me encuentro en el casillero consultado." << END_COLOR << endl;
 }

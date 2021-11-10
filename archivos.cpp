@@ -4,7 +4,7 @@
 
 using namespace std;
 
-bool cargar_materiales(Material* &vector_materiales, int &tipos_de_materiales) {
+bool cargar_materiales(Vector<Material> &vector_materiales) {
 
     ifstream archivo(PATH_MATERIALES);
     string nombre_material;
@@ -13,7 +13,7 @@ bool cargar_materiales(Material* &vector_materiales, int &tipos_de_materiales) {
     if (!archivo.is_open()) {
         cout << endl;
         cout << "ERROR: No se encuentra el archivo de materiales." << endl;
-        return 0;
+        return false;
     }
     else {
 
@@ -22,33 +22,14 @@ bool cargar_materiales(Material* &vector_materiales, int &tipos_de_materiales) {
 
             Material material(nombre_material, cantidad_material);
 
-            agregar_material(vector_materiales, material, tipos_de_materiales);
-
+            vector_materiales.insertar_ultimo(material);
         }
     };
     archivo.close();
-    return 1;
+    return true;
 }
 
-void agregar_material(Material* &vector_materiales, Material material, int &tipos_de_materiales) {
-
-    Material* nuevo_vector_materiales = new Material [tipos_de_materiales + 1];
-
-    for (int i = 0; i < tipos_de_materiales; i++) {
-        nuevo_vector_materiales[i] = vector_materiales[i];
-    }
-
-    nuevo_vector_materiales[tipos_de_materiales] = material;
-
-    if (tipos_de_materiales != 0) {
-        delete[] vector_materiales;
-    }
-
-    vector_materiales = nuevo_vector_materiales;
-    tipos_de_materiales++;
-}
-
-bool cargar_edificios(Edificio* &vector_edificios, int &cantidad_edificios) {
+bool cargar_edificios(Vector<Edificio> &vector_edificios) {
 
     ifstream archivo(PATH_EDIFICIOS);
     string nombre_edificio;
@@ -60,7 +41,7 @@ bool cargar_edificios(Edificio* &vector_edificios, int &cantidad_edificios) {
     if (!archivo.is_open()) {
         cout << endl;
         cout << "ERROR: No se encuentra el archivo de edificios." << endl;
-        return 0;
+        return false;
     }
     else {
         while (archivo >> nombre_edificio) {
@@ -78,32 +59,14 @@ bool cargar_edificios(Edificio* &vector_edificios, int &cantidad_edificios) {
 
             Edificio edificio(nombre_edificio, piedra, madera, metal, limite_construccion);
 
-            agregar_edificio(vector_edificios, edificio, cantidad_edificios);
+            vector_edificios.insertar_ultimo(edificio);
         }
     };
     archivo.close();
-    return 1;
+    return true;
 }
 
-void agregar_edificio(Edificio* &vector_edificios, Edificio edificio, int &cantidad_edificios) {
-
-    Edificio* nuevo_vector_edificios = new Edificio [cantidad_edificios + 1];
-
-    for (int i = 0; i < cantidad_edificios; i++) {
-        nuevo_vector_edificios[i] = vector_edificios[i];
-    }
-
-    nuevo_vector_edificios[cantidad_edificios] = edificio;
-
-    if (cantidad_edificios != 0) {
-        delete[] vector_edificios;
-    }
-
-    vector_edificios = nuevo_vector_edificios;
-    cantidad_edificios++;
-}
-
-bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construidos) {
+bool cargar_ubicaciones(Vector<Ubicacion> &vector_ubicaciones) {
     
     ifstream archivo(PATH_UBICACIONES);
     string nombre_edificio;
@@ -113,7 +76,7 @@ bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construid
     if (!archivo.is_open()) {
         cout << endl;
         cout << "ERROR: No se encuentra el archivo de ubicaciones." << endl;
-        return 0;
+        return false;
     }
     else {
 
@@ -125,30 +88,12 @@ bool cargar_ubicaciones(Ubicacion* &vector_ubicaciones, int &edificios_construid
 
             Ubicacion ubicacion(nombre_edificio, fila, columna);
 
-            agregar_ubicacion(vector_ubicaciones, ubicacion, edificios_construidos);
+            vector_ubicaciones.insertar_ultimo(ubicacion);
         }
     };
     archivo.close();
-    return 1;
+    return true;
 
-}
-
-void agregar_ubicacion(Ubicacion* &vector_ubicaciones, Ubicacion ubicacion, int &edificios_construidos) {
-
-    Ubicacion* nuevo_vector_ubicaciones = new Ubicacion [edificios_construidos + 1];
-
-    for (int i = 0; i < edificios_construidos; i++) {
-        nuevo_vector_ubicaciones[i] = vector_ubicaciones[i];
-    }
-
-    nuevo_vector_ubicaciones[edificios_construidos] = ubicacion;
-
-    if (edificios_construidos != 0) {
-        delete[] vector_ubicaciones;
-    }
-
-    vector_ubicaciones = nuevo_vector_ubicaciones;
-    edificios_construidos++;
 }
 
 bool cargar_mapa(Mapa* &mapa) {
@@ -161,7 +106,7 @@ bool cargar_mapa(Mapa* &mapa) {
     if (!archivo.is_open()) {
         cout << endl;
         cout << "ERROR: No se encuentra el archivo de mapa." << endl;
-        return 0;
+        return false;
     }
     else {
 
@@ -182,41 +127,31 @@ bool cargar_mapa(Mapa* &mapa) {
         }
     };
     archivo.close();
-    return 1;
+    return true;
 }
 
-void guardar_materiales(Material* &vector_materiales, int tipos_de_materiales) {
+void guardar_materiales(Vector<Material> &vector_materiales) {
 
     ofstream archivo_salida(PATH_MATERIALES);
 
-    for (int i = 0; i < tipos_de_materiales; i++) {
-        archivo_salida << vector_materiales[i].obtener_nombre() << " " << vector_materiales[i].obtener_cantidad() << endl;
+    for (int i = 0; i < vector_materiales.obtener_largo(); i++) {
+        archivo_salida << vector_materiales.obtener_dato(i).obtener_nombre() << " " << vector_materiales.obtener_dato(i).obtener_cantidad() << endl;
     }
 
     archivo_salida.close();
-    delete[] vector_materiales;
-    vector_materiales = nullptr;
 }
 
-void borrar_vector_edificios(Edificio* &vector_edificios) {
-    delete[] vector_edificios;
-    vector_edificios = nullptr;
-}
-
-void guardar_ubicaciones(Ubicacion* vector_ubicaciones, int edificios_construidos) {
+void guardar_ubicaciones(Vector<Ubicacion> &vector_ubicaciones) {
 
     ofstream archivo_salida(PATH_UBICACIONES);
 
-    for (int i = 0; i < edificios_construidos; i++) {
-        if (vector_ubicaciones[i].obtener_nombre() != "") {
-            archivo_salida << vector_ubicaciones[i].obtener_nombre() << " (" << vector_ubicaciones[i].obtener_fila();
-            archivo_salida << ", " <<vector_ubicaciones[i].obtener_columna()<< ")" << endl;
-        }
+    for (int i = 0; i < vector_ubicaciones.obtener_largo(); i++) {
+        archivo_salida << vector_ubicaciones.obtener_dato(i).obtener_nombre() << " (";
+        archivo_salida << vector_ubicaciones.obtener_dato(i).obtener_fila();
+        archivo_salida << ", " <<vector_ubicaciones.obtener_dato(i).obtener_columna() << ")" << endl;
     }
 
     archivo_salida.close();
-    delete[] vector_ubicaciones;
-    vector_ubicaciones = nullptr;
 }
 
 string leer_palabra_compuesta(ifstream &archivo, string &nombre_edificio, int opcion) {

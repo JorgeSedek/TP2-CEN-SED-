@@ -6,27 +6,23 @@ using namespace std;
 
 int main() {
 
-    srand((unsigned)time(NULL));
+    srand((unsigned)time(NULL)); // Semilla para generar números aleatorios.
     
-    int tipos_de_materiales = 0;
-    Material* vector_materiales = nullptr;
-    
-    int cantidad_edificios = 0;
-    Edificio* vector_edificios = nullptr;
-
-    int edificios_construidos = 0;
-    Ubicacion* vector_ubicaciones = nullptr;
-
+    Vector<Material> vector_materiales;
+    Vector<Edificio> vector_edificios;
+    Vector<Ubicacion> vector_ubicaciones;
     Mapa* mapa;
     
     int opcion_elegida;
 
-    if (!cargar_materiales(vector_materiales, tipos_de_materiales)) return 0;
-    if (!cargar_edificios(vector_edificios, cantidad_edificios)) return 0;
-    if (!cargar_ubicaciones(vector_ubicaciones, edificios_construidos)) return 0;
-    if (!cargar_mapa(mapa)) return 0;
+    if (!(cargar_materiales(vector_materiales) && 
+        cargar_edificios(vector_edificios) &&
+        cargar_ubicaciones(vector_ubicaciones) && 
+        cargar_mapa(mapa))) {
+        return 0;
+    }
 
-    cargar_ubicaciones_mapa(mapa, vector_ubicaciones, edificios_construidos, vector_edificios, cantidad_edificios);
+    cargar_ubicaciones_mapa(mapa, vector_edificios, vector_ubicaciones);
     
     mostrar_bienvenida();
 
@@ -46,10 +42,9 @@ int main() {
             cin.ignore(100, '\n');
         }
 
-        procesar_opcion(opcion_elegida, mapa, vector_materiales, tipos_de_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos);
+        procesar_opcion(opcion_elegida, mapa, vector_materiales, vector_edificios, vector_ubicaciones);
         
     } while (opcion_elegida != 10);
 
-    delete mapa;
     return 0;
 }

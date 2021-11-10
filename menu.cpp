@@ -27,28 +27,29 @@ void mostrar_menu() {
     cout << END_COLOR;
 }
 
-void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_materiales, int &tipos_de_materiales, Edificio* &vector_edificios, int &cantidad_edificios, Ubicacion* &vector_ubicaciones, int &edificios_construidos) {
+void procesar_opcion(int opcion_elegida, Mapa* &mapa, Vector<Material> &vector_materiales, Vector<Edificio> &vector_edificios, Vector<Ubicacion> &vector_ubicaciones) {
 
     int posiciones_materiales[MATERIALES_UTILIZADOS_EDIFICIOS];
-    cargar_posicion_material_edificios(vector_materiales, tipos_de_materiales, posiciones_materiales);
+    cargar_posicion_material_edificios(vector_materiales, posiciones_materiales);
 
     switch (opcion_elegida) {
         case 1:
             system(CLR_SCREEN);
-            verificar_construccion(mapa, vector_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, posiciones_materiales);
+            verificar_construccion(mapa, vector_materiales, vector_edificios, vector_ubicaciones, posiciones_materiales);
             cout << endl;
             break;
         case 2:
             system(CLR_SCREEN);
-            mostrar_edificios_construidos(vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos);
+            mostrar_edificios_construidos(vector_edificios, vector_ubicaciones);
             break;
         case 3:
             system(CLR_SCREEN);
-            mostrar_todos_edificios(vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos);
+            mostrar_todos_edificios(vector_edificios, vector_ubicaciones);
             break;
         case 4:
             system(CLR_SCREEN);
-            verificar_demolicion(mapa, vector_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, posiciones_materiales);
+            verificar_demolicion(mapa, vector_materiales, vector_edificios, vector_ubicaciones, posiciones_materiales);
+            cout << endl;
             break;
         case 5:
             system(CLR_SCREEN);
@@ -60,11 +61,11 @@ void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_material
             break;
         case 7:
             system(CLR_SCREEN);
-            mostrar_inventario(vector_materiales, tipos_de_materiales);
+            mostrar_inventario(vector_materiales);
             break;
         case 8:
             system(CLR_SCREEN);
-            recolectar_recursos_producidos(vector_materiales, vector_edificios, cantidad_edificios, vector_ubicaciones, edificios_construidos, posiciones_materiales);
+            recolectar_recursos_producidos(vector_materiales, vector_edificios, vector_ubicaciones, posiciones_materiales);
             cout << endl;
             break;
         case 9:
@@ -73,10 +74,10 @@ void procesar_opcion(int opcion_elegida, Mapa* &mapa, Material* &vector_material
             break;
         case 10:
             system(CLR_SCREEN);
-            guardar_materiales(vector_materiales, tipos_de_materiales);
-            borrar_vector_edificios(vector_edificios);
-            guardar_ubicaciones(vector_ubicaciones, edificios_construidos);
+            guardar_materiales(vector_materiales);
+            guardar_ubicaciones(vector_ubicaciones);
             mapa -> borrar();
+            delete mapa;
             cout << SUCESS_COLOR << "-Se han guardado exitosamente los cambios efectuados!" << END_COLOR << endl;
     }
 }

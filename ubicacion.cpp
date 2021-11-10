@@ -4,8 +4,8 @@ using namespace std;
 
 Ubicacion::Ubicacion() {
 	this -> nombre = "";
-	this -> fila = 0;
-	this -> columna = 0;
+	this -> fila = -1;
+	this -> columna = -1;
 }
 
 Ubicacion::Ubicacion(string nombre, int fila, int columna) {
@@ -40,17 +40,13 @@ int Ubicacion::limpiar_string(string cadena, int posicion_inicial, char str_tope
 	numero = cadena[posicion_inicial];
 
 	while (cadena[posicion_inicial + 1] != str_tope) {
-	    posicion_inicial++;
-	    if (ASCII_NUM_CERO <= cadena[posicion_inicial] && cadena[posicion_inicial] <= ASCII_NUM_NUEVE) {
-	    		cifra = cadena[posicion_inicial];
-	    		numero = numero + cifra;
+	    
+		posicion_inicial++;
+	    
+		if (ASCII_NUM_CERO <= cadena[posicion_inicial] && cadena[posicion_inicial] <= ASCII_NUM_NUEVE) {
+	    	cifra = cadena[posicion_inicial];
+	    	numero = numero + cifra;
 	    }
 	}
 	return stoi(numero);
-}
-
-void Ubicacion::cambiar_a_ubicacion_vacia() {
-	this -> nombre = "";
-	this -> fila = -1;
-	this -> columna = -1;
 }

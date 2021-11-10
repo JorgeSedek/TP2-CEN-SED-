@@ -12,32 +12,81 @@ const string INACCESIBLE = "L";
 class Casillero {
 	
 	protected:
+
 	int fila;
 	int columna;
 	string tipo_casillero;
 	bool esta_vacio; 
 
 	public:
+
+	// Constructor sin parámetros. No se puede instanciar.
+	//pre: -
+	//post: -
 	Casillero();
+
+	//pre: -
+	//post: Devuelve la fila del Casillero.
 	int obtener_fila();
+
+	//pre: -
+	//post: Devuelve la columna del Casillero.
 	int obtener_columna();
+
+	//pre: -
+	//post: Devuelve el tipo de casillero del Casillero.
 	string obtener_tipo_casillero();
+
+	//pre: -
+	//post: Devuelve un puntero a un subcasillero (Clase hija de Casillero) según el tipo de casillero ingresado.
+	//		Le asigna su correspondiente fila y columna.
 	Casillero* crear_subcasillero(int fila, int columna, string tipo_casillero);
+
+	//pre: -
+	//post: Actualiza el valor de 'esta_vacio'.
 	void ocupar_casillero();
+
+	//pre: -
+	//post: Actualiza el valor de 'esta_vacio'.
 	void desocupar_casillero();
+
+	//pre: -
+	//post: Muestra información sobre el Casillero y sobre lo que contiene.
 	virtual void mostrar() = 0;
+
+	//pre: -
+	//post: Imprime el Casillero.
 	virtual void imprimir_casillero() = 0;
+
+	//pre: -
+	//post: Devuelve 1 si el Casillero contiene algo, ó 0 si no contiene nada.
 	virtual int obtener_cantidad_contenida() = 0;
+
+	//pre: -
+	//post: Devuelve el nombre de lo que contiene el Casillero.
 	virtual string obtener_nombre_contenido() = 0;
+
+	// Destructor.
+	//pre: -
+	//post: -
 	virtual ~Casillero() {}
 };
 
 class Casillero_transitable: public Casillero {
+	
 	private:
+
 	Material material;
 
 	public:
-	Casillero_transitable(int fila, int columna, string tipo_casillero);
+	
+	// Constructor con parámetros.
+    //pre: -
+    //post: Instancia un Casillero_transitable según los valores ingresados.
+	Casillero_transitable(int fila, int columna);
+
+	//pre: -
+	//post: Actualiza el material con el 'material' ingresado.
 	void asignar_material(Material material);
 	
 	void mostrar() {
@@ -79,21 +128,29 @@ class Casillero_transitable: public Casillero {
 	}
 
 	~Casillero_transitable() {}
-
 };
 
 class Casillero_construible: public Casillero {
+	
 	private:
+
 	Edificio edificio;
 
 	public:
-	Casillero_construible(int fila, int columna, string tipo_casillero);
+
+	// Constructor con parámetros.
+    //pre: -
+    //post: Instancia un Casillero_construible según los valores ingresados.
+	Casillero_construible(int fila, int columna);
+
+	//pre: -
+	//post: Actualiza el edificio con el 'edificio' ingresado.
 	void asignar_edificio(Edificio edificio);
 	
 	void mostrar() {
 		if (esta_vacio) {
 			cout << SUCESS_COLOR << "-Soy un casillero construible y me encuentro vacio." << END_COLOR << endl;
-			}
+		}
 		else {
 			cout << SUCESS_COLOR << "-Soy un casillero construible y no me encuentro vacio." << END_COLOR << endl;
 			edificio.mostrar_informacion();
@@ -153,8 +210,13 @@ class Casillero_construible: public Casillero {
 };
 
 class Casillero_inaccesible: public Casillero {
+	
 	public:
-	Casillero_inaccesible(int fila, int columna, string tipo_casillero);
+
+	// Constructor con parámetros.
+    //pre: -
+    //post: Instancia un Casillero_inaccesible según los valores ingresados.
+	Casillero_inaccesible(int fila, int columna);
 	
 	void mostrar() {
 		cout << SUCESS_COLOR << "-Soy un casillero inaccesible y me encuentro vacio." << END_COLOR << endl;
@@ -174,7 +236,6 @@ class Casillero_inaccesible: public Casillero {
 	}
 
 	~Casillero_inaccesible() {}
-
 };
 
 #endif // CASILLERO_H_INCLUDED
