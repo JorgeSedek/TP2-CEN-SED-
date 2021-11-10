@@ -12,7 +12,7 @@ bool cargar_materiales(Vector<Material> &vector_materiales) {
 
     if (!archivo.is_open()) {
         cout << endl;
-        cout << "ERROR: No se encuentra el archivo de materiales." << endl;
+        cout << ERROR_COLOR << "ERROR: No se encuentra el archivo de materiales." << END_COLOR << endl;
         return false;
     }
     else {
@@ -40,7 +40,7 @@ bool cargar_edificios(Vector<Edificio> &vector_edificios) {
 
     if (!archivo.is_open()) {
         cout << endl;
-        cout << "ERROR: No se encuentra el archivo de edificios." << endl;
+        cout << ERROR_COLOR << "ERROR: No se encuentra el archivo de edificios." << END_COLOR << endl;
         return false;
     }
     else {
@@ -75,7 +75,7 @@ bool cargar_ubicaciones(Vector<Ubicacion> &vector_ubicaciones) {
 
     if (!archivo.is_open()) {
         cout << endl;
-        cout << "ERROR: No se encuentra el archivo de ubicaciones." << endl;
+        cout << ERROR_COLOR << "ERROR: No se encuentra el archivo de ubicaciones." << END_COLOR << endl;
         return false;
     }
     else {
@@ -88,12 +88,17 @@ bool cargar_ubicaciones(Vector<Ubicacion> &vector_ubicaciones) {
 
             Ubicacion ubicacion(nombre_edificio, fila, columna);
 
+            if (!ubicacion.obtener_fila() || !ubicacion.obtener_columna()) {
+                cout << endl;
+                cout << ERROR_COLOR << "ERROR: El programa no acepta coordenadas con ceros." << END_COLOR << endl;
+                return false;
+            }
+
             vector_ubicaciones.insertar_ultimo(ubicacion);
         }
     };
     archivo.close();
     return true;
-
 }
 
 bool cargar_mapa(Mapa* &mapa) {
@@ -105,7 +110,7 @@ bool cargar_mapa(Mapa* &mapa) {
 
     if (!archivo.is_open()) {
         cout << endl;
-        cout << "ERROR: No se encuentra el archivo de mapa." << endl;
+        cout << ERROR_COLOR << "ERROR: No se encuentra el archivo de mapa." << END_COLOR << endl;
         return false;
     }
     else {
