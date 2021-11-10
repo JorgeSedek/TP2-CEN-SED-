@@ -90,7 +90,7 @@ bool cargar_ubicaciones(Vector<Ubicacion> &vector_ubicaciones) {
 
             if (!ubicacion.obtener_fila() || !ubicacion.obtener_columna()) {
                 cout << endl;
-                cout << ERROR_COLOR << "ERROR: El programa no acepta coordenadas con ceros." << END_COLOR << endl;
+                cout << ERROR_COLOR << "ERROR: El programa no acepta coordenadas con valores en cero." << END_COLOR << endl;
                 return false;
             }
 

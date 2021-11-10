@@ -89,8 +89,9 @@ void Mapa::generar_lluvia_materiales() {
 	int total_llovido = piedra_llovida + madera_llovida + metal_llovido;
 	int material_llovido;
 
-	imprimir_mensaje_lluvia(piedra_llovida, madera_llovida, metal_llovido, total_llovido);
-	
+	cout << ENTER_COLOR << "Se va a generar una lluvia de recursos: " << END_COLOR << endl;
+	cout << endl;
+
 	for (int i = 0; i < filas && total_llovido; i++) {
 		for (int j = 0; j < columnas && total_llovido; j++) {
 
@@ -98,6 +99,7 @@ void Mapa::generar_lluvia_materiales() {
 
 				Material nuevo_material = Material();
 				material_llovido = nuevo_material.llover_material_aleatorio();
+				string nombre_material = nuevo_material.obtener_nombre();
 
 				if (puede_llover_mas(piedra_llovida, madera_llovida, metal_llovido, material_llovido)) {
 
@@ -109,29 +111,19 @@ void Mapa::generar_lluvia_materiales() {
 					matriz[i][j] = transitable;
 					matriz[i][j] -> ocupar_casillero();
 
+					cout << SUCESS_COLOR << "-Ha llovido un/a " << nombre_material << " en las coordenadas (";
+					cout << i + 1 << ", " << j + 1 <<")." << END_COLOR << endl;
 					transitables_disponibles--;
 					total_llovido--;
 				}
 			}	
 		}
 	}
-}
 
-void Mapa::imprimir_mensaje_lluvia(int piedra_llovida, int madera_llovida, int metal_llovido, int &total_llovido) {
-
-	if (transitables_disponibles) {
-		cout << ENTER_COLOR << "Se ha generado una lluvia de materiales: " << endl;
-		cout << SUCESS_COLOR << endl;
-		cout << "-Han llovido " << piedra_llovida << " piedras." << endl;
-		cout << "-Han llovido " << madera_llovida << " maderas." << endl;
-		cout << "-Han llovido " << metal_llovido << " metales." << endl;
-		cout << END_COLOR << endl;
+	if (!transitables_disponibles) {
+		cout << ERROR_COLOR << "-No puede llover mas por falta de casilleros transitables vacios." << END_COLOR << endl;
 	}
-	else {
-		cout << ERROR_COLOR << "-No ha llovido por falta de casilleros transitables libres." << END_COLOR << endl;
-		cout << endl;
-		total_llovido = 0;
-	}
+	cout << endl;
 }
 
 bool Mapa::puede_llover_mas(int &piedra_llovida, int &madera_llovida, int &metal_llovido, int material_llovido) {

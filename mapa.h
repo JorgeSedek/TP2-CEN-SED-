@@ -88,10 +88,6 @@ class Mapa {
     //post: Verifica si puede llover más del 'material_llovido' y devuelve True.
 	//		Devuelve False si no se pasa la verificación.
 	bool puede_llover_mas(int &piedra_llovida, int &madera_llovida, int &metal_llovido, int material_llovido);
-
-	//pre: -
-    //post: Imprime un mensaje indicando cuantos materiales de cada tipo han llovido.
-	void imprimir_mensaje_lluvia(int piedra_llovida, int madera_llovida, int metal_llovido, int &total_llovido);
 	
 	//pre: -
     //post: Pide coordenadas y actualiza los respectivos valores ingresados.
